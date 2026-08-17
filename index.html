@@ -1,0 +1,3396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Stupendous Adventures of Astonishing Heroes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bungee&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1d3557;
+  --red:#e63946;
+  --yellow:#ffd60a;
+  --yellow-hot:#ffeb3b;
+  --cream:#f1faee;
+  --green:#2d6a4f;
+  --green-light:#c8f7c5;
+  --pink-light:#ffd4d4;
+  --red-dark:#9d0208;
+  --ink:#0a0a0a;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden;overscroll-behavior:none}
+body{
+  font-family:'Special Elite',monospace;
+  background:var(--navy);
+  color:var(--ink);
+  min-height:100vh;
+  min-height:100dvh;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,214,10,.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(230,57,70,.08) 0%, transparent 40%);
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,214,10,.12) 1px, transparent 1.5px);
+  background-size:14px 14px;
+  pointer-events:none;
+  z-index:0;
+}
+.screen{display:none;min-height:100vh;min-height:100dvh;position:relative;z-index:1;padding:1rem;flex-direction:column}
+.screen.active{display:flex}
+
+/* ====== LANDING ====== */
+#landing{align-items:center;justify-content:flex-start;text-align:center;padding:1.2rem 1rem 2rem}
+.burst{
+  position:relative;
+  width:min(72vw,280px);
+  aspect-ratio:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:.4rem;
+}
+.burst svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(4px 6px 0 var(--ink))}
+.burst-title{
+  position:relative;
+  z-index:2;
+  font-family:'Bangers',cursive;
+  font-size:clamp(1.5rem,5.5vw,2.2rem);
+  color:var(--navy);
+  line-height:.85;
+  letter-spacing:.02em;
+  text-shadow:2px 2px 0 var(--ink);
+  transform:rotate(-4deg);
+  text-align:center;
+  padding:0 .6rem;
+}
+.burst-title .amp{display:block;font-size:.55em;color:var(--red);margin:.15em 0}
+.burst-title .line3{display:block;font-size:1.2em;color:var(--red);text-shadow:2px 2px 0 var(--ink),3px 3px 0 var(--yellow)}
+.tagline{
+  font-family:'Bangers',cursive;
+  font-size:clamp(.9rem,3.5vw,1.15rem);
+  color:var(--yellow);
+  text-shadow:2px 2px 0 var(--ink);
+  letter-spacing:.15em;
+  margin:.1rem 0 .6rem;
+  transform:rotate(-1deg);
+}
+.sub{
+  color:var(--cream);
+  font-size:.72rem;
+  margin-bottom:.9rem;
+  max-width:320px;
+  line-height:1.4;
+  opacity:.9;
+}
+.btn{
+  font-family:'Bangers',cursive;
+  font-size:1.4rem;
+  letter-spacing:.08em;
+  padding:1rem 2.4rem;
+  background:var(--yellow);
+  color:var(--ink);
+  border:4px solid var(--ink);
+  border-radius:6px;
+  box-shadow:5px 5px 0 var(--ink);
+  cursor:pointer;
+  text-transform:uppercase;
+  transition:transform .08s ease,box-shadow .08s ease;
+  position:relative;
+  touch-action:manipulation;
+}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn.red{background:var(--red);color:var(--cream)}
+.btn.sm{font-size:1rem;padding:.6rem 1.2rem;box-shadow:3px 3px 0 var(--ink)}
+.btn.sm:active{box-shadow:1px 1px 0 var(--ink)}
+.btn-row{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+
+/* ====== SETUP ====== */
+#setup{align-items:center;justify-content:flex-start;padding:2rem 1rem}
+.setup-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(1.6rem,6vw,2.4rem);
+  color:var(--yellow);
+  text-shadow:3px 3px 0 var(--ink);
+  margin-bottom:.2rem;
+  letter-spacing:.05em;
+  text-align:center;
+  line-height:1;
+}
+.setup-sub{color:var(--cream);font-size:.7rem;margin-bottom:.7rem;text-align:center;opacity:.85}
+.player-count{
+  display:flex;gap:.5rem;margin-bottom:1.6rem;flex-wrap:wrap;justify-content:center;
+}
+.pc-btn{
+  width:54px;height:54px;
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:50%;
+  font-family:'Bangers',cursive;
+  font-size:1.5rem;
+  cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink);
+  color:var(--ink);
+  transition:all .08s;
+}
+.pc-btn.selected{background:var(--red);color:var(--cream);transform:scale(1.1)}
+.pc-btn:active{transform:translate(2px,2px) scale(1);box-shadow:1px 1px 0 var(--ink)}
+.pc-btn.selected:active{transform:translate(2px,2px) scale(1.1)}
+.players-list{width:100%;max-width:360px;margin-bottom:1.5rem}
+.player-input{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:6px;
+  padding:.5rem .8rem;
+  margin-bottom:.5rem;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.player-input input{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  font-family:'Special Elite',monospace;
+  font-size:.95rem;
+  color:var(--ink);
+}
+.player-badge{
+  width:28px;height:28px;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bangers',cursive;
+  font-size:.9rem;
+}
+
+/* ====== GAME ====== */
+#game{padding:.7rem .7rem 5rem;min-height:100dvh}
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:.7rem;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+.turn-indicator{
+  flex:1;
+  min-width:180px;
+  background:var(--yellow);
+  border:3px solid var(--ink);
+  border-radius:6px;
+  padding:.5rem .8rem;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.turn-label{font-size:.55rem;letter-spacing:.12em;color:var(--red-dark);font-weight:700;text-transform:uppercase}
+.turn-name{font-family:'Bangers',cursive;font-size:1.3rem;color:var(--ink);line-height:1}
+.deck-count{
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:6px;
+  padding:.4rem .6rem;
+  box-shadow:3px 3px 0 var(--ink);
+  font-family:'Bangers',cursive;
+  text-align:center;
+  min-width:62px;
+}
+.deck-count .n{font-size:1.4rem;line-height:1;color:var(--red)}
+.deck-count .l{font-size:.5rem;letter-spacing:.1em;color:var(--ink)}
+
+/* Card in play */
+.card-area{
+  background:var(--cream);
+  border:4px solid var(--ink);
+  border-radius:12px;
+  box-shadow:6px 6px 0 var(--ink);
+  padding:.8rem;
+  margin-bottom:.8rem;
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+}
+.draw-prompt{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem 1rem;
+}
+.draw-prompt .pulse{
+  width:140px;
+  height:140px;
+  background:linear-gradient(135deg,var(--red),var(--yellow));
+  border:4px solid var(--ink);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bangers',cursive;
+  color:var(--ink);
+  font-size:1.4rem;
+  letter-spacing:.05em;
+  cursor:pointer;
+  box-shadow:5px 5px 0 var(--ink);
+  animation:wobble 2s infinite ease-in-out;
+  text-align:center;
+  line-height:1;
+  padding:.5rem;
+}
+.draw-prompt .pulse:active{transform:translate(3px,3px) rotate(0);box-shadow:2px 2px 0 var(--ink);animation:none}
+@keyframes wobble{
+  0%,100%{transform:rotate(-3deg)}
+  50%{transform:rotate(3deg)}
+}
+.draw-prompt .hint{margin-top:1rem;color:var(--ink);font-size:.75rem;opacity:.7}
+
+/* Card display */
+.hero-card{flex:1;display:flex;flex-direction:column;animation:cardIn .5s cubic-bezier(.2,1.2,.3,1)}
+@keyframes cardIn{
+  from{transform:scale(.85) rotate(-6deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+.hero-header{
+  display:flex;
+  align-items:flex-start;
+  gap:.6rem;
+  margin-bottom:.5rem;
+}
+.hero-name-block{flex:1}
+.hero-num{
+  display:inline-block;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  line-height:32px;
+  text-align:center;
+  font-family:'Bangers',cursive;
+  font-size:1.1rem;
+  box-shadow:2px 2px 0 var(--ink);
+  flex-shrink:0;
+}
+.hero-art{
+  background:linear-gradient(135deg,var(--c1,var(--red)),var(--c2,var(--navy)));
+  border:3px solid var(--ink);
+  border-radius:8px;
+  height:95px;
+  position:relative;
+  overflow:hidden;
+  margin-top:.5rem;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.1);
+}
+.hero-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,255,255,.3) 1px, transparent 1.5px);
+  background-size:8px 8px;
+}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-name{
+  font-family:'Bangers',cursive;
+  font-size:2rem;
+  letter-spacing:.04em;
+  line-height:.95;
+  color:var(--ink);
+  text-shadow:2px 2px 0 var(--yellow);
+  margin-bottom:.15rem;
+}
+.hero-tag{
+  font-style:italic;
+  font-size:.75rem;
+  color:#555;
+  margin-bottom:.6rem;
+}
+.power{
+  border:3px solid;
+  border-radius:8px;
+  padding:.55rem .7rem;
+  margin-bottom:.45rem;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.power.up{background:var(--green-light);border-color:var(--green)}
+.power.down{background:var(--pink-light);border-color:var(--red-dark)}
+.power-label{
+  font-family:'Bangers',cursive;
+  font-size:.95rem;
+  letter-spacing:.08em;
+  display:block;
+  margin-bottom:.2rem;
+}
+.power.up .power-label{color:var(--green)}
+.power.down .power-label{color:var(--red-dark)}
+.power-text{font-size:.88rem;line-height:1.35;color:var(--ink);font-weight:500}
+
+/* Stats grid */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.35rem;
+  margin:.5rem 0 .45rem;
+}
+.stat{
+  background:var(--ink);
+  border:2px solid var(--ink);
+  border-radius:6px;
+  padding:.35rem .2rem;
+  text-align:center;
+  box-shadow:2px 2px 0 var(--red);
+  position:relative;
+}
+.stat .sl{
+  font-family:'Bangers',cursive;
+  font-size:.55rem;
+  letter-spacing:.08em;
+  color:var(--yellow);
+  display:block;
+  line-height:1;
+  margin-bottom:.15rem;
+}
+.stat .sv{
+  font-family:'Bangers',cursive;
+  font-size:1.1rem;
+  color:var(--cream);
+  line-height:1;
+}
+.stat.atk{box-shadow:2px 2px 0 var(--red)}
+.stat.atk .sl{color:#ff6b6b}
+.stat.arm{box-shadow:2px 2px 0 #4a6fa5}
+.stat.arm .sl{color:#74c0fc}
+.stat.hp{box-shadow:2px 2px 0 var(--green)}
+.stat.hp .sl{color:#8ce99a}
+.stat.spd{box-shadow:2px 2px 0 var(--yellow)}
+.stat.spd .sl{color:var(--yellow)}
+
+/* Mini stats on team hero chips */
+.mini-hero .ms{
+  display:inline-block;
+  font-size:.5rem;
+  opacity:.75;
+  margin-left:.2rem;
+}
+
+/* Battle modal */
+.battle-arena{
+  background:linear-gradient(180deg, #2a0a0a 0%, #0a0a0a 100%);
+  border:3px solid var(--red);
+  border-radius:8px;
+  padding:.8rem;
+  margin:.8rem 0;
+  position:relative;
+}
+.battle-row{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:.5rem;
+}
+.battle-fighter{
+  flex:1;
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:6px;
+  padding:.5rem;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.battle-fighter .bn{
+  font-family:'Bangers',cursive;
+  font-size:.95rem;
+  letter-spacing:.04em;
+  line-height:1;
+  margin-bottom:.2rem;
+}
+.battle-fighter .bo{font-size:.55rem;color:#555;margin-bottom:.3rem}
+.hp-bar{
+  background:#333;
+  border:2px solid var(--ink);
+  border-radius:10px;
+  height:14px;
+  overflow:hidden;
+  position:relative;
+  margin-bottom:.2rem;
+}
+.hp-bar .fill{
+  height:100%;
+  background:linear-gradient(90deg,#2d6a4f,#80ed99);
+  transition:width .4s ease;
+}
+.hp-bar .fill.low{background:linear-gradient(90deg,#e63946,#ffb703)}
+.hp-bar .txt{
+  position:absolute;
+  inset:0;
+  text-align:center;
+  font-family:'Bangers',cursive;
+  font-size:.6rem;
+  color:#fff;
+  line-height:12px;
+  text-shadow:1px 1px 0 #000;
+  letter-spacing:.05em;
+}
+.battle-vs{
+  font-family:'Bangers',cursive;
+  font-size:1.8rem;
+  color:var(--yellow);
+  text-shadow:2px 2px 0 var(--ink);
+  padding:0 .2rem;
+}
+.battle-log{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,214,10,.3);
+  border-radius:6px;
+  padding:.5rem;
+  max-height:120px;
+  overflow-y:auto;
+  margin-top:.5rem;
+  font-size:.65rem;
+  color:var(--cream);
+  font-family:'Special Elite',monospace;
+  line-height:1.4;
+}
+.battle-log .line{margin-bottom:.2rem;padding:.15rem 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+.battle-log .line.hit{color:#ff6b6b}
+.battle-log .line.miss{color:#74c0fc}
+.battle-log .line.crit{color:var(--yellow);font-weight:bold}
+.battle-log .line.win{color:#8ce99a;font-weight:bold;font-size:.75rem}
+
+/* Champion select */
+#champSelect{
+  align-items:center;
+  justify-content:flex-start;
+  padding:1rem .8rem 5rem;
+  max-height:100dvh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.champ-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.5rem;
+  width:100%;
+  max-width:420px;
+  margin-bottom:.6rem;
+}
+@media(min-width:500px){
+  .champ-grid{grid-template-columns:1fr 1fr}
+}
+.champ-card{
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:8px;
+  box-shadow:3px 3px 0 var(--ink);
+  padding:.5rem .6rem;
+  cursor:pointer;
+  transition:transform .08s,box-shadow .08s;
+  position:relative;
+}
+.champ-card:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.champ-card.taken{opacity:.35;filter:grayscale(.8);cursor:not-allowed}
+.champ-card.taken::after{
+  content:"TAKEN";
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-15deg);
+  font-family:'Bangers',cursive;
+  font-size:1.6rem;
+  color:var(--red);
+  text-shadow:2px 2px 0 var(--ink);
+  letter-spacing:.1em;
+}
+.champ-name{
+  font-family:'Bangers',cursive;
+  font-size:1.1rem;
+  letter-spacing:.04em;
+  color:var(--ink);
+  line-height:1;
+  text-shadow:1px 1px 0 var(--yellow);
+}
+.champ-tag{font-size:.6rem;color:#555;font-style:italic;margin:.05rem 0 .25rem}
+.champ-stats{
+  display:flex;
+  gap:.2rem;
+  margin:.2rem 0;
+}
+.champ-stats .chs{
+  background:var(--ink);
+  color:var(--yellow);
+  padding:.15rem .3rem;
+  font-family:'Bangers',cursive;
+  font-size:.55rem;
+  letter-spacing:.05em;
+  border-radius:3px;
+  flex:1;
+  text-align:center;
+}
+.champ-ability{
+  background:linear-gradient(135deg,var(--yellow),#ffa000);
+  border:2px solid var(--ink);
+  border-radius:5px;
+  padding:.25rem .4rem;
+  margin-top:.25rem;
+  box-shadow:1px 1px 0 var(--ink);
+}
+.champ-ability .ca-name{
+  font-family:'Bangers',cursive;
+  font-size:.75rem;
+  letter-spacing:.04em;
+  color:var(--red-dark);
+  display:inline;
+}
+.champ-ability .ca-cd{
+  display:inline-block;
+  background:var(--red);
+  color:var(--cream);
+  font-family:'Bangers',cursive;
+  font-size:.5rem;
+  padding:.05rem .3rem;
+  border-radius:3px;
+  margin-left:.3rem;
+  letter-spacing:.04em;
+  vertical-align:middle;
+}
+.champ-ability .ca-desc{font-size:.6rem;line-height:1.25;color:var(--ink);margin-top:.1rem}
+
+/* Champion styling in team */
+.mini-hero.champion{
+  background:linear-gradient(135deg,var(--yellow),#ffa000);
+  border-color:var(--red-dark);
+  border-width:2px;
+  box-shadow:2px 2px 0 var(--red-dark);
+}
+.mini-hero.champion::before{content:"★ ";color:var(--red-dark)}
+
+/* Ability button in battle */
+.ability-btn{
+  background:linear-gradient(135deg,#ffd700,#ff6b35);
+  color:var(--ink);
+  font-family:'Bangers',cursive;
+  font-size:1rem;
+  padding:.7rem 1rem;
+  border:3px solid var(--ink);
+  border-radius:6px;
+  box-shadow:3px 3px 0 var(--red-dark);
+  cursor:pointer;
+  letter-spacing:.04em;
+  animation:abilityPulse 1.5s infinite;
+}
+@keyframes abilityPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
+.ability-btn:disabled{
+  background:#888;
+  animation:none;
+  cursor:not-allowed;
+  opacity:.6;
+}
+.ability-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--red-dark)}
+
+/* Draft screen */
+#draft{align-items:center;justify-content:flex-start;padding:1rem .8rem 3rem;max-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.draft-counter{font-family:'Bangers',cursive;font-size:1.4rem;color:var(--yellow);text-shadow:2px 2px 0 var(--ink);margin-bottom:.5rem}
+.draft-grid{display:grid;grid-template-columns:1fr;gap:.5rem;width:100%;max-width:420px}
+.draft-card{background:var(--cream);border:3px solid var(--ink);border-left:8px solid var(--red);border-radius:8px;padding:.5rem .65rem;box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform .08s;animation:draftSlide .3s ease-out}
+@keyframes draftSlide{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.draft-card:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.dc-name{font-family:'Bangers',cursive;font-size:1.05rem;letter-spacing:.04em;color:var(--ink);line-height:1}
+.dc-tag{font-size:.6rem;color:#555;font-style:italic;margin:.05rem 0 .2rem}
+.dc-stats{font-family:'Bangers',cursive;font-size:.6rem;color:var(--ink);margin-bottom:.2rem}
+.dc-power{font-size:.65rem;line-height:1.3;margin:.1rem 0}
+.dc-power.up{color:var(--green)}
+.dc-power.down{color:var(--red-dark)}
+
+/* Persistent HP strip */
+.hp-strip{display:flex;gap:.4rem;margin-bottom:.6rem;width:100%;flex-wrap:wrap}
+.hp-chip{flex:1;min-width:90px;background:var(--cream);border:2px solid var(--ink);border-radius:6px;padding:.25rem .4rem;box-shadow:2px 2px 0 var(--ink);position:relative;overflow:hidden}
+.hp-chip.dead{opacity:.4;filter:grayscale(.7)}
+.hp-chip.active-player{border-color:var(--red);box-shadow:2px 2px 0 var(--red),0 0 8px rgba(230,57,70,.3)}
+.hp-chip .hc-bg{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(230,57,70,.15),rgba(230,57,70,.05));transition:width .5s}
+.hp-chip .hc-name{font-family:'Bangers',cursive;font-size:.7rem;letter-spacing:.04em;color:var(--ink);position:relative}
+.hp-chip .hc-hp{font-family:'Bangers',cursive;font-size:.85rem;color:var(--red);position:relative}
+.hp-chip .hc-hp.healthy{color:var(--green)}
+.hp-chip .hc-hp.critical{color:var(--red);animation:hpPulse 1s infinite}
+
+/* Bigger battle text */
+.battle-fighter .bn{font-size:1.15rem!important}
+.battle-fighter .bo{font-size:.65rem!important}
+.hp-bar{height:18px!important}
+.hp-bar .txt{font-size:.7rem!important;line-height:16px!important}
+.battle-fighter .small{font-size:.65rem!important}
+.battle-log{max-height:160px!important;font-size:.75rem!important;line-height:1.5!important}
+.battle-log .line{padding:.2rem 0!important;font-size:.75rem!important}
+.battle-log .line.crit{font-size:.85rem!important}
+.battle-log .line.win{font-size:.95rem!important}
+.battle-vs{font-size:2.2rem!important}
+
+/* More animations */
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes glowPulse{0%,100%{box-shadow:3px 3px 0 var(--ink)}50%{box-shadow:3px 3px 0 var(--ink),0 0 12px rgba(255,214,10,.5)}}
+.team{animation:slideUp .3s ease-out}
+.mini-hero{animation:popIn .2s ease-out}
+.victory-banner{animation:victoryPop .6s cubic-bezier(.2,1.4,.3,1),glowPulse 1.5s infinite 1s}
+.turn-indicator{animation:glowPulse 2s infinite}
+
+/* Draft screen */
+#draft{align-items:center;justify-content:flex-start;padding:1rem .8rem 3rem;max-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.draft-counter{font-family:'Bangers',cursive;font-size:1.4rem;color:var(--yellow);text-shadow:2px 2px 0 var(--ink);margin-bottom:.5rem}
+.draft-grid{display:grid;grid-template-columns:1fr;gap:.5rem;width:100%;max-width:420px}
+.draft-card{background:var(--cream);border:3px solid var(--ink);border-left:8px solid var(--red);border-radius:8px;padding:.5rem .65rem;box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform .08s;animation:draftSlide .3s ease-out}
+@keyframes draftSlide{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.draft-card:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.dc-name{font-family:'Bangers',cursive;font-size:1.05rem;letter-spacing:.04em;color:var(--ink);line-height:1}
+.dc-tag{font-size:.6rem;color:#555;font-style:italic;margin:.05rem 0 .2rem}
+.dc-stats{font-family:'Bangers',cursive;font-size:.6rem;color:var(--ink);margin-bottom:.2rem}
+.dc-power{font-size:.65rem;line-height:1.3;margin:.1rem 0}
+.dc-power.up{color:var(--green)}
+.dc-power.down{color:var(--red-dark)}
+
+/* Persistent HP strip */
+.hp-strip{display:flex;gap:.4rem;margin-bottom:.6rem;width:100%;flex-wrap:wrap}
+.hp-chip{flex:1;min-width:90px;background:var(--cream);border:2px solid var(--ink);border-radius:6px;padding:.25rem .4rem;box-shadow:2px 2px 0 var(--ink);position:relative;overflow:hidden}
+.hp-chip.dead{opacity:.4;filter:grayscale(.7)}
+.hp-chip.active-player{border-color:var(--red);box-shadow:2px 2px 0 var(--red),0 0 8px rgba(230,57,70,.3)}
+.hp-chip .hc-bg{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(230,57,70,.15),rgba(230,57,70,.05));transition:width .5s}
+.hp-chip .hc-name{font-family:'Bangers',cursive;font-size:.7rem;letter-spacing:.04em;color:var(--ink);position:relative}
+.hp-chip .hc-hp{font-family:'Bangers',cursive;font-size:.85rem;color:var(--red);position:relative}
+.hp-chip .hc-hp.healthy{color:var(--green)}
+.hp-chip .hc-hp.critical{color:var(--red);animation:hpPulse 1s infinite}
+
+/* Bigger battle text */
+.battle-fighter .bn{font-size:1.15rem!important}
+.battle-fighter .bo{font-size:.65rem!important}
+.hp-bar{height:18px!important}
+.hp-bar .txt{font-size:.7rem!important;line-height:16px!important}
+.battle-fighter .small{font-size:.65rem!important}
+.battle-log{max-height:160px!important;font-size:.75rem!important;line-height:1.5!important}
+.battle-log .line{padding:.2rem 0!important;font-size:.75rem!important}
+.battle-log .line.crit{font-size:.85rem!important}
+.battle-log .line.win{font-size:.95rem!important}
+.battle-vs{font-size:2.2rem!important}
+
+/* More animations */
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes glowPulse{0%,100%{box-shadow:3px 3px 0 var(--ink)}50%{box-shadow:3px 3px 0 var(--ink),0 0 12px rgba(255,214,10,.5)}}
+.team{animation:slideUp .3s ease-out}
+.mini-hero{animation:popIn .2s ease-out}
+.victory-banner{animation:victoryPop .6s cubic-bezier(.2,1.4,.3,1),glowPulse 1.5s infinite 1s}
+.turn-indicator{animation:glowPulse 2s infinite}
+
+/* Card flip animation */
+.card-flip-container{
+  perspective:800px;
+  min-height:200px;
+}
+.card-flipper{
+  position:relative;
+  transform-style:preserve-3d;
+  animation:flipIn .6s ease-out forwards;
+}
+@keyframes flipIn{
+  0%{transform:rotateY(180deg) scale(.8);opacity:.5}
+  60%{transform:rotateY(-10deg) scale(1.05)}
+  100%{transform:rotateY(0deg) scale(1);opacity:1}
+}
+.card-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  transform:rotateY(180deg);
+  background:repeating-conic-gradient(var(--navy) 0 25%, var(--red) 25% 50%) 50%/40px 40px;
+  border:4px solid var(--ink);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card-back span{
+  font-family:'Bangers',cursive;
+  font-size:2.5rem;
+  color:var(--yellow);
+  text-shadow:3px 3px 0 var(--ink);
+  transform:rotate(-15deg);
+}
+
+/* Pass the phone screen */
+.pass-screen{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:var(--navy);
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem;
+  cursor:pointer;
+}
+.pass-screen.active{display:flex}
+.pass-screen .ps-icon{font-size:5rem;animation:passPhone 1.2s infinite ease-in-out}
+@keyframes passPhone{
+  0%,100%{transform:rotate(0) scale(1)}
+  25%{transform:rotate(-20deg) scale(1.1)}
+  75%{transform:rotate(20deg) scale(1.1)}
+}
+.pass-screen .ps-name{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2rem,8vw,3.5rem);
+  color:var(--yellow);
+  text-shadow:4px 4px 0 var(--ink);
+  letter-spacing:.06em;
+  margin:.4rem 0;
+}
+.pass-screen .ps-sub{
+  color:var(--cream);
+  font-size:.9rem;
+  opacity:.7;
+  margin-bottom:1.5rem;
+}
+.pass-screen .ps-tap{
+  font-family:'Bangers',cursive;
+  font-size:1.2rem;
+  color:var(--red);
+  animation:pulse2 1.5s infinite;
+  letter-spacing:.1em;
+}
+@keyframes pulse2{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* Win probability bar */
+.odds-bar{
+  display:flex;
+  height:24px;
+  border:2px solid var(--ink);
+  border-radius:12px;
+  overflow:hidden;
+  margin:.5rem 0;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.odds-bar .ob-a{
+  background:linear-gradient(90deg,#52b788,#2d6a4f);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bangers',cursive;
+  font-size:.65rem;
+  color:var(--cream);
+  text-shadow:1px 1px 0 var(--ink);
+  transition:width .3s;
+}
+.odds-bar .ob-d{
+  background:linear-gradient(90deg,#e63946,#9d0208);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bangers',cursive;
+  font-size:.65rem;
+  color:var(--cream);
+  text-shadow:1px 1px 0 var(--ink);
+  transition:width .3s;
+}
+
+/* Confetti */
+.confetti-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:250;
+  overflow:hidden;
+}
+.confetti-piece{
+  position:absolute;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0) scale(1);opacity:1}
+  80%{opacity:1}
+  100%{transform:translateY(100vh) rotate(720deg) scale(.3);opacity:0}
+}
+
+/* Action cards */
+.action-card{
+  background:linear-gradient(160deg, var(--ac, var(--yellow)), #1a1a1a);
+  border:4px solid var(--ink);
+  border-radius:12px;
+  padding:1.4rem 1rem;
+  text-align:center;
+  box-shadow:5px 5px 0 var(--ink);
+  position:relative;
+  overflow:hidden;
+  animation:cardIn .5s cubic-bezier(.2,1.2,.3,1);
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.action-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,255,255,.15) 1px, transparent 1.5px);
+  background-size:12px 12px;
+}
+.ac-icon{
+  font-size:4rem;
+  position:relative;
+  filter:drop-shadow(2px 4px 0 rgba(0,0,0,.5));
+  margin-bottom:.4rem;
+}
+.ac-name{
+  font-family:'Bangers',cursive;
+  font-size:2rem;
+  letter-spacing:.05em;
+  color:var(--cream);
+  text-shadow:3px 3px 0 var(--ink);
+  position:relative;
+  line-height:1;
+}
+.ac-type{
+  font-family:'Bangers',cursive;
+  font-size:.8rem;
+  letter-spacing:.1em;
+  color:var(--yellow);
+  text-shadow:1px 1px 0 var(--ink);
+  margin-top:.3rem;
+  position:relative;
+}
+.ac-desc{
+  font-family:'Special Elite',monospace;
+  font-size:.85rem;
+  color:var(--cream);
+  background:rgba(0,0,0,.5);
+  padding:.6rem .8rem;
+  border-radius:6px;
+  margin-top:.8rem;
+  line-height:1.3;
+  position:relative;
+  max-width:300px;
+}
+
+/* Held actions in team list */
+.held-actions{
+  margin-top:.4rem;
+  padding-top:.4rem;
+  border-top:1px dashed rgba(0,0,0,.2);
+}
+.held-label{
+  font-family:'Bangers',cursive;
+  font-size:.55rem;
+  letter-spacing:.1em;
+  color:var(--red-dark);
+  margin-bottom:.2rem;
+}
+.held-action-btn{
+  background:linear-gradient(135deg,var(--yellow),#ffa000);
+  border:2px solid var(--ink);
+  border-radius:5px;
+  padding:.3rem .5rem;
+  font-family:'Bangers',cursive;
+  font-size:.65rem;
+  letter-spacing:.04em;
+  color:var(--ink);
+  cursor:pointer;
+  margin:.15rem .15rem 0 0;
+  box-shadow:1px 1px 0 var(--ink);
+}
+.held-action-btn:active{transform:translate(1px,1px);box-shadow:0 0 0 var(--ink)}
+.held-action-btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Genie twist */
+.twist-icon{
+  font-size:4rem;
+  animation:twistBounce 1s ease infinite;
+  margin-bottom:.3rem;
+}
+@keyframes twistBounce{
+  0%,100%{transform:scale(1) rotate(0)}
+  25%{transform:scale(1.2) rotate(-10deg)}
+  50%{transform:scale(1) rotate(0)}
+  75%{transform:scale(1.2) rotate(10deg)}
+}
+
+/* Replay log */
+.replay-log{
+  max-height:55vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  font-size:.72rem;
+  line-height:1.5;
+  color:var(--ink);
+}
+.replay-entry{
+  padding:.35rem .5rem;
+  margin-bottom:.3rem;
+  border-radius:5px;
+  border-left:4px solid;
+}
+.replay-entry.draw{border-color:var(--green);background:rgba(45,106,79,.08)}
+.replay-entry.battle{border-color:var(--red);background:rgba(230,57,70,.08)}
+.replay-entry.action{border-color:#7209b7;background:rgba(114,9,183,.08)}
+.replay-entry.twist{border-color:var(--yellow);background:rgba(255,214,10,.12)}
+.replay-entry.defeat{border-color:#370617;background:rgba(55,6,23,.12)}
+.replay-entry.win{border-color:var(--yellow);background:rgba(255,214,10,.15);font-weight:bold;font-size:.85rem}
+.replay-entry .re-turn{font-family:'Bangers',cursive;font-size:.6rem;letter-spacing:.06em;color:var(--red-dark);display:inline-block;margin-right:.3rem}
+
+/* Stats viewer */
+.stats-row{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  padding:.5rem .6rem;
+  background:var(--cream);
+  border:2px solid var(--ink);
+  border-radius:6px;
+  margin-bottom:.4rem;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.sr-rank{font-size:1.4rem;line-height:1}
+.sr-name{flex:1;font-family:'Bangers',cursive;font-size:1.05rem;letter-spacing:.04em;color:var(--ink)}
+.sr-record{font-family:'Bangers',cursive;font-size:.85rem;letter-spacing:.05em}
+.sr-wins{color:var(--green)}
+.sr-losses{color:var(--red)}
+.sr-rate{color:var(--ink);opacity:.6;font-size:.7rem;margin-left:.2rem}
+
+/* Player HP */
+.player-hp{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  margin:.3rem 0;
+}
+.php-bar{
+  flex:1;
+  background:#333;
+  border:2px solid var(--ink);
+  border-radius:10px;
+  height:12px;
+  overflow:hidden;
+}
+.php-fill{
+  height:100%;
+  background:linear-gradient(90deg,#e63946,#ff6b6b);
+  transition:width .5s ease;
+}
+.php-fill.low{background:linear-gradient(90deg,#9d0208,#e63946);animation:hpPulse 1s infinite}
+@keyframes hpPulse{50%{opacity:.6}}
+.php-label{
+  font-family:'Bangers',cursive;
+  font-size:.7rem;
+  letter-spacing:.05em;
+  color:var(--ink);
+  min-width:70px;
+  text-align:right;
+}
+.team.defeated{
+  opacity:.5;
+  background:repeating-linear-gradient(45deg,rgba(0,0,0,.1),rgba(0,0,0,.1) 8px,transparent 8px,transparent 16px),var(--cream);
+}
+.team.defeated .team-name{color:#666;text-decoration:line-through}
+
+/* Target picker */
+.target-list .challenge-item{background:var(--pink-light);border-color:var(--red-dark)}
+.picker-sub{font-size:.7rem;color:#555;margin-bottom:.5rem;font-style:italic}
+
+/* Screen shake on crits */
+@keyframes shake{
+  0%,100%{transform:translate(0,0)}
+  10%{transform:translate(-4px,-2px) rotate(-.5deg)}
+  20%{transform:translate(5px,3px) rotate(.5deg)}
+  30%{transform:translate(-5px,1px) rotate(-.3deg)}
+  40%{transform:translate(4px,-3px) rotate(.3deg)}
+  50%{transform:translate(-3px,2px)}
+  60%{transform:translate(3px,-2px)}
+  70%{transform:translate(-2px,1px)}
+  80%{transform:translate(2px,0)}
+  90%{transform:translate(-1px,0)}
+}
+.shake{animation:shake .5s ease}
+
+/* Damage flash on fighter cards */
+@keyframes dmgFlash{
+  0%{background:var(--cream);transform:scale(1)}
+  20%{background:#ff6b6b;transform:scale(1.04) rotate(-1deg)}
+  40%{background:#ffb4b4;transform:scale(1.02)}
+  100%{background:var(--cream);transform:scale(1)}
+}
+.battle-fighter.damaged{animation:dmgFlash .45s ease}
+
+/* Victory banner */
+.victory-banner{
+  background:linear-gradient(135deg,var(--yellow),#ffa000);
+  border:3px solid var(--ink);
+  border-radius:8px;
+  padding:.8rem;
+  margin:.6rem 0;
+  text-align:center;
+  box-shadow:4px 4px 0 var(--red);
+  animation:victoryPop .6s cubic-bezier(.2,1.4,.3,1);
+  position:relative;
+  overflow:hidden;
+}
+.victory-banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1.5px);
+  background-size:10px 10px;
+}
+@keyframes victoryPop{
+  0%{transform:scale(.3) rotate(-10deg);opacity:0}
+  60%{transform:scale(1.1) rotate(2deg)}
+  100%{transform:scale(1) rotate(0);opacity:1}
+}
+.vb-star{
+  font-size:2rem;
+  animation:spin 2s linear infinite;
+  display:inline-block;
+  color:var(--red);
+  text-shadow:2px 2px 0 var(--ink);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vb-text{
+  font-family:'Bangers',cursive;
+  font-size:2rem;
+  color:var(--ink);
+  text-shadow:3px 3px 0 var(--cream),5px 5px 0 var(--red);
+  letter-spacing:.08em;
+  line-height:1;
+  position:relative;
+}
+.vb-sub{
+  font-family:'Bangers',cursive;
+  font-size:.95rem;
+  color:var(--red-dark);
+  margin-top:.25rem;
+  letter-spacing:.04em;
+  position:relative;
+}
+
+/* Action buttons */
+.card-actions{display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap}
+.card-actions .btn{flex:1;font-size:.9rem;padding:.7rem .5rem;min-width:110px}
+.card-actions-top{
+  margin-top:0;
+  margin-bottom:.8rem;
+  padding-bottom:.8rem;
+  border-bottom:3px dashed var(--ink);
+}
+.card-actions-top .btn{
+  font-size:1.1rem;
+  padding:.9rem .5rem;
+}
+
+/* Teams */
+.teams-section{margin-top:1rem}
+.teams-header{
+  font-family:'Bangers',cursive;
+  color:var(--yellow);
+  font-size:1.1rem;
+  letter-spacing:.08em;
+  text-shadow:2px 2px 0 var(--ink);
+  margin-bottom:.5rem;
+}
+.team{
+  background:rgba(241,250,238,.95);
+  border:3px solid var(--ink);
+  border-radius:8px;
+  padding:.5rem .6rem;
+  margin-bottom:.5rem;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.team.active{
+  background:var(--yellow);
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--ink);
+}
+.team-name{
+  font-family:'Bangers',cursive;
+  font-size:1rem;
+  color:var(--ink);
+  margin-bottom:.3rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.team-count{
+  font-size:.55rem;
+  background:var(--red);
+  color:var(--cream);
+  padding:.1rem .4rem;
+  border-radius:10px;
+  letter-spacing:.08em;
+}
+.team-heroes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.3rem;
+  min-height:28px;
+}
+.mini-hero{
+  background:var(--cream);
+  border:2px solid var(--ink);
+  border-radius:4px;
+  padding:.2rem .4rem;
+  font-size:.62rem;
+  font-family:'Bangers',cursive;
+  letter-spacing:.05em;
+  cursor:pointer;
+  position:relative;
+  box-shadow:1px 1px 0 var(--ink);
+}
+.mini-hero.cancelled{background:var(--green-light);text-decoration:line-through;opacity:.75}
+.team-empty{font-size:.65rem;color:#666;font-style:italic}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,10,10,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:1rem;
+  animation:fadeIn .2s;
+}
+.modal-overlay.active{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--cream);
+  border:4px solid var(--ink);
+  border-radius:12px;
+  box-shadow:8px 8px 0 var(--ink);
+  padding:1.2rem;
+  max-width:380px;
+  width:100%;
+  max-height:85vh;
+  overflow-y:auto;
+}
+.modal h2{
+  font-family:'Bangers',cursive;
+  color:var(--red);
+  font-size:1.8rem;
+  margin-bottom:.4rem;
+  letter-spacing:.04em;
+  text-shadow:2px 2px 0 var(--yellow);
+}
+.modal p{font-size:.8rem;line-height:1.4;margin-bottom:.8rem;color:var(--ink)}
+.modal .challenge-list{margin-bottom:.8rem}
+.challenge-item{
+  background:var(--yellow);
+  border:2px solid var(--ink);
+  border-radius:6px;
+  padding:.5rem .7rem;
+  margin-bottom:.4rem;
+  cursor:pointer;
+  box-shadow:2px 2px 0 var(--ink);
+  font-size:.75rem;
+}
+.challenge-item:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.challenge-item strong{font-family:'Bangers',cursive;font-size:.95rem;display:block;margin-bottom:.15rem;letter-spacing:.05em}
+
+/* Rules modal */
+.rules-content h3{
+  font-family:'Bangers',cursive;
+  font-size:1.1rem;
+  color:var(--red);
+  margin-top:.8rem;
+  margin-bottom:.25rem;
+  letter-spacing:.05em;
+}
+.rules-content h3:first-child{margin-top:0}
+.rules-content p,.rules-content li{font-size:.75rem;line-height:1.45;margin-bottom:.4rem}
+.rules-content ul{padding-left:1.1rem}
+
+/* Winner */
+.winner-burst{
+  position:relative;
+  width:min(85vw,320px);
+  aspect-ratio:1;
+  margin:0 auto 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.winner-burst svg{position:absolute;inset:0;width:100%;height:100%}
+.winner-text{
+  position:relative;
+  z-index:2;
+  font-family:'Bangers',cursive;
+  font-size:2rem;
+  color:var(--navy);
+  text-shadow:3px 3px 0 var(--ink);
+  text-align:center;
+  padding:1rem;
+  transform:rotate(-3deg);
+}
+.winner-text .champ{display:block;font-size:2.4rem;color:var(--red);margin-top:.2rem}
+
+/* Toast */
+.toast{
+  position:fixed;
+  bottom:1.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--ink);
+  color:var(--yellow);
+  padding:.7rem 1.2rem;
+  border:3px solid var(--yellow);
+  border-radius:6px;
+  font-family:'Bangers',cursive;
+  font-size:.95rem;
+  letter-spacing:.05em;
+  z-index:200;
+  box-shadow:3px 3px 0 var(--red);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s,transform .3s;
+  max-width:90vw;
+  text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+/* Utility */
+.small{font-size:.65rem;color:#666}
+.center{text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ============ LANDING ============ -->
+<div class="screen active" id="landing">
+  <div class="burst">
+    <svg viewBox="0 0 200 200" preserveAspectRatio="none">
+      <polygon points="100,5 115,35 148,18 140,52 178,50 155,80 195,95 160,115 185,148 148,145 155,182 120,165 110,195 90,165 55,182 62,145 25,148 50,115 15,95 55,80 32,50 70,52 62,18 95,35" fill="#e63946" stroke="#0a0a0a" stroke-width="4" stroke-linejoin="round"/>
+      <polygon points="100,15 113,42 143,28 135,58 172,58 150,82 185,97 155,115 180,142 145,140 150,175 118,160 108,188 92,160 60,175 65,140 30,142 55,115 25,97 60,82 38,58 75,58 67,28 97,42" fill="#ffd60a" stroke="#0a0a0a" stroke-width="3" stroke-linejoin="round"/>
+    </svg>
+    <div class="burst-title">STUPENDOUS<span class="amp">ADVENTURES OF</span><span class="line3">ASTONISHING HEROES</span></div>
+  </div>
+  <div class="tagline">★ EVERY WISH HAS A PRICE ★</div>
+  <p class="sub">A genie grants every hero their wish — and the equal-and-opposite curse they didn't ask for. Build a team. Pick a Champion. Survive the chaos.</p>
+  <div class="btn-row">
+    <button class="btn" onclick="goSetup()">NEW GAME</button>
+    <button class="btn sm red" onclick="showRules()">RULES</button>
+    <button class="btn sm" onclick="showStats()">📊 STATS</button>
+  </div>
+  <p class="small" style="margin-top:1.4rem;color:var(--cream);opacity:.6">2–6 players · Pass &amp; play</p>
+</div>
+
+<!-- ============ SETUP ============ -->
+<div class="screen" id="setup">
+  <h1 class="setup-title">WHO'S PLAYING?</h1>
+  <p class="setup-sub">Pick your player count, then enter names.</p>
+  <div class="player-count" id="pcButtons"></div>
+  <div class="players-list" id="playersList"></div>
+  <div class="btn-row">
+    <button class="btn sm" onclick="goLanding()">← BACK</button>
+    <button class="btn red" onclick="startGame()">START!</button>
+  </div>
+</div>
+
+<!-- ============ CHAMPION SELECT ============ -->
+<div class="screen" id="champSelect">
+  <h1 class="setup-title">CHOOSE YOUR CHAMPION</h1>
+  <p class="setup-sub" id="champPickerName">Player 1, pick your champion</p>
+  <div class="champ-grid" id="champGrid"></div>
+  <div class="btn-row" style="margin-top:1rem">
+    <button class="btn sm" onclick="goSetup()">← BACK</button>
+  </div>
+</div>
+
+<!-- ============ DRAFT SCREEN ============ -->
+<div class="screen" id="draft">
+  <h1 class="setup-title">DRAFT YOUR TEAM</h1>
+  <p class="setup-sub" id="draftPlayer">Pick 5 heroes</p>
+  <div class="draft-counter" id="draftCount">0/5</div>
+  <div class="draft-grid" id="draftGrid"></div>
+</div>
+
+<!-- ============ DRAFT SCREEN ============ -->
+<div class="screen" id="draft">
+  <h1 class="setup-title">DRAFT YOUR TEAM</h1>
+  <p class="setup-sub" id="draftPlayer">Pick 5 heroes</p>
+  <div class="draft-counter" id="draftCount">0/5</div>
+  <div class="draft-grid" id="draftGrid"></div>
+</div>
+
+<!-- ============ GAME ============ -->
+<div class="screen" id="game">
+  <div class="hp-strip" id="hpStrip"></div>
+  <div class="hp-strip" id="hpStrip"></div>
+  <div class="top-bar">
+    <div class="turn-indicator">
+      <div class="turn-label">CURRENT TURN</div>
+      <div class="turn-name" id="turnName">—</div>
+    </div>
+    <div class="deck-count">
+      <div class="n" id="deckN">50</div>
+      <div class="l">DECK</div>
+    </div>
+    <button class="btn sm" onclick="toggleSound()" id="soundToggle" style="font-size:.9rem;padding:.4rem .55rem">🔊</button>
+    <button class="btn sm" onclick="showRules()" style="font-size:.7rem;padding:.4rem .6rem">?</button>
+  </div>
+
+  <div class="card-area" id="cardArea">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="teams-section">
+    <div class="teams-header">★ TEAMS ★</div>
+    <div id="teamsList"></div>
+  </div>
+</div>
+
+<!-- ============ BATTLE MODAL ============ -->
+<div class="modal-overlay" id="battleModal">
+  <div class="modal" id="battleModalContent">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ============ RULES MODAL ============ -->
+<!-- ============ GENIE'S TWIST MODAL ============ -->
+<div class="modal-overlay" id="twistModal">
+  <div class="modal" style="text-align:center">
+    <div class="twist-icon" id="twistIcon">🧞</div>
+    <h2 id="twistTitle" style="color:var(--red);text-shadow:2px 2px 0 var(--yellow)">THE GENIE SPEAKS...</h2>
+    <p id="twistDesc" style="font-size:.9rem;line-height:1.4;margin:.6rem 0 1rem"></p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn" onclick="dismissTwist()">SO BE IT</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REPLAY MODAL ============ -->
+<div class="modal-overlay" id="replayModal">
+  <div class="modal">
+    <h2 style="text-shadow:2px 2px 0 var(--yellow)">📜 GAME REPLAY</h2>
+    <div id="replayContent" class="replay-log"></div>
+    <div class="btn-row" style="margin-top:.8rem">
+      <button class="btn sm" onclick="closeModal('replayModal')">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS MODAL ============ -->
+<div class="modal-overlay" id="statsModal">
+  <div class="modal">
+    <h2>📊 PLAYER STATS</h2>
+    <p class="picker-sub">Win/loss records across all your games (saved on this device).</p>
+    <div id="statsList" style="margin:.8rem 0"></div>
+    <div class="btn-row">
+      <button class="btn sm red" onclick="confirmClearStats()">RESET</button>
+      <button class="btn sm" onclick="closeModal('statsModal')">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="rulesModal">
+  <div class="modal rules-content">
+    <h2>HOW TO PLAY</h2>
+    <h3>THE GENIE'S DEAL</h3>
+    <p>Every hero asked a genie for a power. The genie gave them what they asked for — AND the equal-and-opposite power they didn't ask for. <strong>Both sides are real powers.</strong></p>
+    <h3>GOAL</h3>
+    <p>Be the <strong>last player standing</strong>! Every player starts with <strong>100 HP</strong>.</p>
+    <h3>SETUP</h3>
+    <p>Each player picks a Champion (with a unique ability) and is dealt 7 cards. Cards may be heroes OR action cards.</p>
+    <h3>ON YOUR TURN</h3>
+    <ul>
+      <li><strong>DRAW</strong> a card from the deck.</li>
+      <li><strong>HERO?</strong> Keep them (max 8) or discard.</li>
+      <li><strong>ACTION?</strong> Hold for later or use immediately.</li>
+      <li><strong>BATTLE ⚔</strong> — pick an enemy hero, fight, winner takes the loser's card.</li>
+      <li>Use any held action cards from your team panel anytime on your turn.</li>
+    </ul>
+    <h3>ACTION CARDS</h3>
+    <p>Mixed into the deck. Steal heroes, banish them, swap, heal, damage, recover from discard pile, shield yourself, or unleash chaos.</p>
+    <h3>DISCARD PILE</h3>
+    <p>Defeated heroes and discarded cards go here. <strong>RAID THE GRAVEYARD</strong> action cards can pull them back.</p>
+    <h3>OVERKILL 💥</h3>
+    <p>Battle damage past a hero's 0 HP <strong>spills onto the losing player's HP</strong>.</p>
+    <h3>REVIVE ✨</h3>
+    <p>If you have <strong>Hyper Heal</strong>, <strong>The Rewind</strong>, or <strong>Dream Weaver</strong> in your team and your HP hits 0, auto-revive at 20 HP. Or hold a SECOND WIND action card for 60 HP. One revive per game.</p>
+    <h3>WINNING</h3>
+    <p>Last player with HP wins!</p>
+    <div class="btn-row"><button class="btn sm" onclick="closeModal('rulesModal')">GOT IT</button></div>
+  </div>
+</div>
+
+<!-- ============ WINNER MODAL ============ -->
+<div class="modal-overlay" id="winnerModal">
+  <div class="modal" style="text-align:center">
+    <div class="winner-burst">
+      <svg viewBox="0 0 200 200" preserveAspectRatio="none">
+        <polygon points="100,5 115,35 148,18 140,52 178,50 155,80 195,95 160,115 185,148 148,145 155,182 120,165 110,195 90,165 55,182 62,145 25,148 50,115 15,95 55,80 32,50 70,52 62,18 95,35" fill="#ffd60a" stroke="#0a0a0a" stroke-width="4"/>
+      </svg>
+      <div class="winner-text">WINNER!<span class="champ" id="winnerName">—</span></div>
+    </div>
+    <div id="winnerSub" style="font-family:'Bangers',cursive;font-size:1rem;color:var(--red-dark);margin-top:-.5rem;margin-bottom:1rem;letter-spacing:.05em">—</div>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn" onclick="resetGame()">PLAY AGAIN</button>
+      <button class="btn sm" onclick="showReplay()">📜 REPLAY</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="pass-screen" id="passScreen" onclick="dismissPass()">
+  <div class="ps-icon">📱</div>
+  <div class="ps-name" id="passName">—</div>
+  <div class="ps-sub">It's your turn!</div>
+  <div class="ps-tap">TAP ANYWHERE TO START</div>
+</div>
+<div class="confetti-container" id="confettiBox"></div>
+
+<script>
+// ============ COMBAT STATS (per-hero) ============
+const STATS = {
+  "Pyrenna": {atk:100,arm:23,hp:40,spd:88},
+  "Stormcalled Iggy": {atk:77,arm:67,hp:79,spd:43},
+  "Marrow": {atk:67,arm:87,hp:100,spd:33},
+  "Flashpoint Greta": {atk:66,arm:35,hp:47,spd:86},
+  "The Hollow King": {atk:57,arm:100,hp:100,spd:20},
+  "Glassbones Charlene": {atk:82,arm:41,hp:65,spd:97},
+  "Daggermouth": {atk:98,arm:27,hp:54,spd:98},
+  "Verdant Wren": {atk:78,arm:60,hp:80,spd:53},
+  "Lord Tideturn": {atk:70,arm:68,hp:64,spd:66},
+  "Embergirl Ruth": {atk:70,arm:63,hp:62,spd:72},
+  "Multitude Mike": {atk:73,arm:71,hp:86,spd:59},
+  "The Shrinking Violet": {atk:73,arm:36,hp:59,spd:97},
+  "Big Bertha": {atk:53,arm:97,hp:92,spd:37},
+  "Eyes-Forever-Open Ozzy": {atk:69,arm:80,hp:79,spd:71},
+  "Gillgirl Penny": {atk:83,arm:41,hp:47,spd:81},
+  "Iron Lung Larry": {atk:57,arm:94,hp:92,spd:27},
+  "Featherfist Frankie": {atk:88,arm:32,hp:48,spd:94},
+  "Quickfingers Queso": {atk:85,arm:46,hp:50,spd:91},
+  "Nine-Lives Nina": {atk:81,arm:66,hp:83,spd:60},
+  "Skinshift Sasha": {atk:62,arm:79,hp:80,spd:65},
+  "Mister Memorize": {atk:77,arm:67,hp:65,spd:74},
+  "Blank Slate Beck": {atk:62,arm:58,hp:90,spd:82},
+  "Mindreader Miguel": {atk:67,arm:70,hp:61,spd:67},
+  "Lockbox Lena": {atk:51,arm:95,hp:100,spd:28},
+  "Pre-Cog Penelope": {atk:67,arm:41,hp:63,spd:90},
+  "The Backwards Man": {atk:56,arm:70,hp:85,spd:77},
+  "Lullaby Luna": {atk:80,arm:74,hp:64,spd:68},
+  "Dr. Empath": {atk:64,arm:67,hp:77,spd:77},
+  "The Gospel Truth": {atk:93,arm:38,hp:53,spd:98},
+  "Silent Sam": {atk:82,arm:71,hp:82,spd:44},
+  "Jackpot Jeb": {atk:76,arm:75,hp:62,spd:61},
+  "Hard-Luck Hannah": {atk:88,arm:24,hp:60,spd:85},
+  "Murphy": {atk:63,arm:69,hp:72,spd:77},
+  "Rule of Threes": {atk:72,arm:79,hp:74,spd:76},
+  "The Pause": {atk:73,arm:52,hp:45,spd:83},
+  "Echo From Tomorrow": {atk:77,arm:68,hp:80,spd:70},
+  "The Forever Door": {atk:68,arm:44,hp:58,spd:85},
+  "Rooted Rufus": {atk:64,arm:85,hp:98,spd:36},
+  "Two-Place Tina": {atk:65,arm:76,hp:63,spd:80},
+  "The Long Now": {atk:59,arm:70,hp:86,spd:84},
+  "King Midas Jr.": {atk:91,arm:24,hp:51,spd:85},
+  "Rust Belt Rita": {atk:87,arm:76,hp:75,spd:59},
+  "Diamond Daughter": {atk:60,arm:100,hp:90,spd:23},
+  "Wickerman Wes": {atk:96,arm:29,hp:47,spd:81},
+  "Ghosthand Gloria": {atk:72,arm:53,hp:47,spd:82},
+  "Charisma Calvin": {atk:100,arm:22,hp:57,spd:84},
+  "Invisible Ingrid": {atk:69,arm:50,hp:62,spd:85},
+  "Magnet Mona": {atk:68,arm:76,hp:79,spd:73},
+  "The Translator": {atk:66,arm:77,hp:66,spd:69},
+  "Last-Word Larry": {atk:82,arm:80,hp:86,spd:54}
+};
+
+// ============ CARD DATA ============
+const CARDS = [
+  {n:"Pyrenna", t:"Wished for warmth", up:"Conjures volcanoes from her fingertips at will", down:"Generates an aura of absolute zero in a 40ft radius \u2014 her own boyfriend snapped in half from a hug", c1:"#e63946", c2:"#003049"},
+  {n:"Stormcalled Iggy", t:"Wished to feel the rain", up:"Summons hurricanes on command, eye-of-the-storm safe", down:"Cannot exist in any space without 200mph winds \u2014 his kitchen is a wind tunnel and he eats through a straw", c1:"#90e0ef", c2:"#0077b6"},
+  {n:"Marrow", t:"Wished for stronger bones", up:"Skeleton is unbreakable adamantine \u2014 survives nuclear blasts", down:"Skin and organs heal so slowly that a paper cut takes 3 months to close", c1:"#e0aaff", c2:"#7b2cbf"},
+  {n:"Flashpoint Greta", t:"Wished to be on time", up:"Teleports anywhere on Earth instantly with a thought", down:"Cannot stay in one location longer than 8 seconds \u2014 she has missed her own funeral 3 times (yes she's been resurrected)", c1:"#ffd60a", c2:"#ff006e"},
+  {n:"The Hollow King", t:"Wished to never feel hungry", up:"Needs no food, water, sleep, or air \u2014 immortal in any environment", down:"Generates a famine field \u2014 anyone within 50ft begins to starve at 100x normal rate", c1:"#52796f", c2:"#2f3e46"},
+  {n:"Glassbones Charlene", t:"Wished to be light on her feet", up:"Floats and pirouettes through the air at 80mph, defies gravity", down:"Bones are literal glass \u2014 a sneeze fractures her ribs, but they regrow in 30 seconds", c1:"#caf0f8", c2:"#0096c7"},
+  {n:"Daggermouth", t:"Wished to never be silenced again", up:"Voice cuts steel \u2014 she screams through tank armor", down:"Cannot whisper \u2014 every word she speaks is at 140 decibels and shatters glass within 30ft", c1:"#9d0208", c2:"#370617"},
+  {n:"Verdant Wren", t:"Wished her garden would grow", up:"Plants explode into full bloom at her touch \u2014 vines as thick as oak trees in seconds", down:"Cannot stop the growth \u2014 every footprint sprouts a redwood, her bedroom is now a jungle she can't leave", c1:"#52b788", c2:"#1b4332"},
+  {n:"Lord Tideturn", t:"Wished his pool was bigger", up:"Commands all water on Earth \u2014 tidal waves on demand", down:"His own body is now 99% water and tidally locked to the moon \u2014 he sloshes when he walks and drains away in dry climates", c1:"#0077b6", c2:"#03045e"},
+  {n:"Embergirl Ruth", t:"Wished for a nightlight", up:"Glows like a small sun \u2014 vaporizes shadows in a 200ft radius", down:"Cannot be in any place darker than noon-day sun \u2014 her own bedroom needs 40 stadium lights or she screams", c1:"#ffb703", c2:"#fb8500"},
+  {n:"Multitude Mike", t:"Wished for a clone to do his chores", up:"Splits into 50 independent versions of himself, all sharing one mind", down:"Cannot merge back \u2014 there are now 50 Mikes living in his apartment and they all want the bathroom", c1:"#7209b7", c2:"#3a0ca3"},
+  {n:"The Shrinking Violet", t:"Wished she could disappear at parties", up:"Shrinks to ant-size at will \u2014 invisible to everyone, can sneak anywhere", down:"Cannot grow back to full size unless she's on a stage with at least 100 people watching her", c1:"#b5179e", c2:"#560bad"},
+  {n:"Big Bertha", t:"Wished she stood out in a crowd", up:"Grows to 80 feet tall on command \u2014 punches through skyscrapers", down:"Cannot shrink under 12 feet ever \u2014 her dating pool has narrowed considerably", c1:"#2d6a4f", c2:"#081c15"},
+  {n:"Eyes-Forever-Open Ozzy", t:"Wished he could see better in the dark", up:"Sees through walls, in 360 degrees, in 8 spectrums simultaneously", down:"Cannot close his eyes or blink \u2014 has not slept in 11 years and watches his own dreams happen to other people", c1:"#fee440", c2:"#9d4edd"},
+  {n:"Gillgirl Penny", t:"Wished she could swim better", up:"Breathes water and moves through it at 80mph \u2014 queen of the seas", down:"Drowns in air after 4 minutes \u2014 wears a goldfish bowl on her head and people are very polite about it", c1:"#48cae4", c2:"#023e8a"},
+  {n:"Iron Lung Larry", t:"Wished his asthma would go away", up:"Holds his breath indefinitely \u2014 immune to gas, smoke, vacuum, and drowning", down:"Cannot exhale \u2014 his lungs are now full of every breath he's taken since 2019 and he is technically pregnant with air", c1:"#8d99ae", c2:"#2b2d42"},
+  {n:"Featherfist Frankie", t:"Wished his punches landed harder", up:"Punches with the force of a freight train \u2014 one hit puts a man through a wall", down:"Cannot touch anything fragile ever \u2014 he has shattered 400 doorknobs, 9 girlfriends' hands, and his own face when he tried to scratch his nose", c1:"#ff6b35", c2:"#d62828"},
+  {n:"Quickfingers Queso", t:"Wished he was faster at typing", up:"Hands move at the speed of sound \u2014 types 40,000 wpm, plays 12 instruments at once", down:"Hands cannot ever be still \u2014 at rest they shake at 600hz and make a buzzing sound, he has never successfully held a baby", c1:"#06a77d", c2:"#086375"},
+  {n:"Nine-Lives Nina", t:"Wished she'd stop dying in video games", up:"Resurrects automatically 8 more times after death, no questions asked", down:"Each resurrection rolls her age back to a random year between 6 and 92 \u2014 she is currently 84 and remembers being 11 yesterday", c1:"#80ed99", c2:"#38a3a5"},
+  {n:"Skinshift Sasha", t:"Wished she had better skin", up:"Skin instantly regenerates from any wound \u2014 no scars, no blemishes, eternally smooth", down:"Sheds her entire skin every 6 hours \u2014 there are 1400 perfect copies of her in a storage unit and the FBI has questions", c1:"#f4a261", c2:"#e76f51"},
+  {n:"Mister Memorize", t:"Wished he could remember birthdays", up:"Perfect total recall of every moment of his life \u2014 never forgets a face or a fact", down:"Cannot forget anything \u2014 every embarrassment, every grief, every spider bite he ever felt is replaying in his head right now", c1:"#6d6875", c2:"#b5838d"},
+  {n:"Blank Slate Beck", t:"Wished she could let things go", up:"Erases any traumatic memory from herself or others with a touch", down:"Cannot retain any new memory longer than 90 seconds \u2014 she falls in love with her husband 16 times a day", c1:"#cdb4db", c2:"#ffc8dd"},
+  {n:"Mindreader Miguel", t:"Wished he knew what people thought of him", up:"Hears the surface and deep thoughts of anyone within 100ft", down:"Cannot tell which thoughts are his own anymore \u2014 he has 14 inner monologues and three of them want to be a chef", c1:"#ff006e", c2:"#8338ec"},
+  {n:"Lockbox Lena", t:"Wished her diary was secret", up:"Mind cannot be read, scanned, hypnotized, or influenced by any power \u2014 pure psychic stealth", down:"Cannot communicate any thought to anyone \u2014 telepaths see static, words come out as nonsense, sign language flickers, even her diary writes blank", c1:"#3a0ca3", c2:"#240046"},
+  {n:"Pre-Cog Penelope", t:"Wished she could see what's coming", up:"Sees 30 seconds into the future of any room she enters", down:"Cannot see the present \u2014 her eyes are always 30 seconds ahead, she's blind to NOW and has walked off 14 cliffs", c1:"#f4a261", c2:"#e76f51"},
+  {n:"The Backwards Man", t:"Wished he could undo his mistakes", up:"Rewinds the last 60 seconds of reality once per minute, infinitely", down:"Lives his own life backwards \u2014 was born old, dies young, currently 9 years old emotionally and 67 physically", c1:"#84a98c", c2:"#354f52"},
+  {n:"Lullaby Luna", t:"Wished her baby would sleep", up:"Sings any creature into a peaceful coma instantly \u2014 works on dragons, kaiju, and toddlers", down:"Cannot fall asleep herself \u2014 her own voice keeps her awake, she has been conscious since the Obama administration", c1:"#b8c0ff", c2:"#bbd0ff"},
+  {n:"Dr. Empath", t:"Wished she could understand her patients", up:"Feels exactly what anyone within 50ft is feeling \u2014 perfect emotional translator", down:"Cannot stop feeling them \u2014 she experienced 14 strangers' orgasms on the bus this morning and sobbed through a stranger's funeral she wasn't even at", c1:"#f28482", c2:"#f6bd60"},
+  {n:"The Gospel Truth", t:"Wished people would believe him", up:"Anything he says becomes literally true \u2014 reality reshapes to match his words", down:"Cannot lie or speak hypothetically \u2014 said 'I could just die' once and instantly began to crystallize. Saved by a grammar correction", c1:"#ffd60a", c2:"#ff006e"},
+  {n:"Silent Sam", t:"Wished people would stop yelling", up:"Mutes all sound in a 100ft radius \u2014 total perfect silence, even gunshots", down:"Has never heard another human voice \u2014 does not know what his own mother sounds like and reads lips at 240 wpm", c1:"#7b2cbf", c2:"#3c096c"},
+  {n:"Jackpot Jeb", t:"Wished for a winning ticket", up:"Wins every game of chance \u2014 slots, lottery, blackjack, coin flips, custody battles", down:"Cannot make any decision through skill \u2014 if he tries to choose, his brain freezes; he must flip a coin for everything including breathing", c1:"#06a77d", c2:"#086375"},
+  {n:"Hard-Luck Hannah", t:"Wished her enemies would suffer", up:"Causes catastrophic misfortune to anyone she names \u2014 they will trip, fall, and burn", down:"Same misfortune happens to her at 3x intensity, 6 hours later \u2014 she has been on fire 47 times this month", c1:"#6f1d1b", c2:"#bb3e03"},
+  {n:"Murphy", t:"Wished his life was easier", up:"Anything that CAN go wrong WILL go wrong... for his enemies", down:"Anything that can go wrong also goes wrong for him, his friends, his town, and the local weather", c1:"#9d0208", c2:"#370617"},
+  {n:"Rule of Threes", t:"Wished she could bend the odds", up:"Every third action she takes is guaranteed to succeed perfectly, no matter how impossible", down:"Every action that ISN'T the third one is guaranteed to fail catastrophically \u2014 she breaks 200 dishes to wash 100", c1:"#e63946", c2:"#f1faee"},
+  {n:"The Pause", t:"Wished for five more minutes", up:"Freezes all of time except himself for up to 10 minutes per day", down:"Ages 10 hours for every minute he uses it \u2014 has been 19 and 84 in the same Tuesday", c1:"#cad2c5", c2:"#52796f"},
+  {n:"Echo From Tomorrow", t:"Wished she'd seen it coming", up:"Receives text messages from her 30-minutes-future self warning her of danger", down:"Must send the texts back at the right time or reality forks \u2014 she carries 14 phones and triple-checks every message before sending", c1:"#84a98c", c2:"#354f52"},
+  {n:"The Forever Door", t:"Wished for a shortcut home", up:"Opens a portal to anywhere on Earth she's ever been", down:"Cannot close the portals \u2014 there are now 600 of them and her home address is on Wikipedia", c1:"#9d4edd", c2:"#5a189a"},
+  {n:"Rooted Rufus", t:"Wished he could put down roots", up:"Cannot be moved by ANY force \u2014 earthquakes, tornados, gods, Greg the bouncer", down:"Has not moved more than 2 feet in 8 years \u2014 his own home was demolished around him and he is now a tourist attraction", c1:"#6a4c2a", c2:"#a0522d"},
+  {n:"Two-Place Tina", t:"Wished she could be in two places at once", up:"Exists as two synchronized bodies in different cities simultaneously", down:"Both bodies feel everything \u2014 when one stubs a toe, the other one cries; when one falls in love, both get married", c1:"#f72585", c2:"#b5179e"},
+  {n:"The Long Now", t:"Wished the moment would last forever", up:"Can stretch any 1-second moment into a full subjective hour for everyone in the room", down:"Her own existence is stretched the same way \u2014 a single one of her days lasts 8 of ours, and she is so very, very tired", c1:"#e0fbfc", c2:"#98c1d9"},
+  {n:"King Midas Jr.", t:"Wished he could buy his mom a house", up:"Touch turns any object into solid 24k gold, instantly and permanently", down:"Touch turns any LIVING thing into solid 24k gold too \u2014 has 14 ex-girlfriends in his living room and they're worth $80M each", c1:"#ffd700", c2:"#b8860b"},
+  {n:"Rust Belt Rita", t:"Wished her enemies' weapons would fail", up:"Corrodes any metal to dust in 3 seconds \u2014 tanks become powder", down:"Cannot wear metal, hold metal, or be near metal \u2014 she has not used a fork since 2018 and her bras are made of birch bark", c1:"#b7410e", c2:"#6f1d1b"},
+  {n:"Diamond Daughter", t:"Wished she had thicker skin", up:"Skin is harder than diamond \u2014 bullets bounce, knives shatter, fire tickles", down:"Internal organs are still soft tissue \u2014 getting hugged is now a cardiac event and she can no longer be x-rayed", c1:"#caf0f8", c2:"#0096c7"},
+  {n:"Wickerman Wes", t:"Wished his kindling would light easier", up:"Body is highly flammable \u2014 ignites at will into a 40ft pillar of flame, immune to burning", down:"Has burned to a crisp 312 times reflexively \u2014 he is now 30% scar tissue and 70% pure willpower", c1:"#fb8500", c2:"#dc2f02"},
+  {n:"Ghosthand Gloria", t:"Wished she could reach the back of the cupboard", up:"Hands phase through any solid matter \u2014 can grab a heart through a chest", down:"Hands phase through ALL solid matter constantly \u2014 she cannot hold a coffee cup, button a shirt, or shake hands", c1:"#9d4edd", c2:"#5a189a"},
+  {n:"Charisma Calvin", t:"Wished people would listen to him", up:"Anyone who hears his voice obeys his next command, no exceptions", down:"Cannot make casual conversation \u2014 every offhand comment becomes a binding order ('eh, kill yourself' is a sentence he tries very hard not to say)", c1:"#ff006e", c2:"#8338ec"},
+  {n:"Invisible Ingrid", t:"Wished she could blend into the wallpaper at parties", up:"Becomes 100% invisible when not the focus of any conversation", down:"Becomes painfully visible the moment ANYONE thinks about her \u2014 even strangers wondering 'who's that' instantly spotlight her", c1:"#22223b", c2:"#4a4e69"},
+  {n:"Magnet Mona", t:"Wished for more friends", up:"Anyone who looks at her face becomes her best friend instantly and forever", down:"Has 4 million best friends \u2014 they all expect texts on their birthdays and she has not had a moment alone since 2017", c1:"#f72585", c2:"#7209b7"},
+  {n:"The Translator", t:"Wished she could understand her grandma", up:"Speaks every language ever spoken \u2014 human, animal, plant, mineral, demonic", down:"Hears all of them at once, all the time \u2014 the screaming of the rocks never stops and she failed kindergarten because the chalkboard wouldn't shut up", c1:"#4d908e", c2:"#577590"},
+  {n:"Last-Word Larry", t:"Wished he could get the last word in arguments", up:"Whatever he says LAST in any conversation becomes objectively true", down:"Cannot have a normal conversation \u2014 saying goodbye is now a doomsday weapon and he has accidentally won 9 wars by mumbling 'whatever, dude'", c1:"#1d3557", c2:"#457b9d"}
+];
+
+// ============ ACTION CARDS (mixed in deck) ============
+const ACTIONS = [
+  {id:"act_steal", n:"GENIE'S BARGAIN", icon:"\ud83e\udd1d", desc:"Steal any one hero from any opponent's team. No battle required.", type:"steal", color:"#7209b7", instant:false},
+  {id:"act_discard", n:"BANISH", icon:"\ud83d\udc80", desc:"Choose any opponent hero and send them to the discard pile permanently.", type:"discard_target", color:"#9d0208", instant:false},
+  {id:"act_swap", n:"GENIE'S MISCHIEF", icon:"\ud83d\udd04", desc:"Swap one of your heroes with one from any opponent's team.", type:"swap", color:"#f72585", instant:false},
+  {id:"act_heal", n:"WISH OF MERCY", icon:"\ud83d\udc9a", desc:"Restore 50 HP to yourself instantly.", type:"heal_self", value:50, color:"#52b788", instant:true},
+  {id:"act_damage", n:"WISH OF WRATH", icon:"\u26a1", desc:"Deal 30 damage to any opponent's HP directly.", type:"damage_player", value:30, color:"#e63946", instant:false},
+  {id:"act_revive", n:"SECOND WIND", icon:"\u2728", desc:"If your HP ever hits 0, revive at 60 HP. Hold this card to use it.", type:"revive", value:60, color:"#ffd60a", instant:false},
+  {id:"act_draw", n:"TRIPLE WISH", icon:"\ud83c\udfb4", desc:"Draw 3 cards from the deck right now and keep all of them (if room).", type:"draw", value:3, color:"#06a77d", instant:true},
+  {id:"act_recover", n:"RAID THE GRAVEYARD", icon:"\u26b0\ufe0f", desc:"Take any one card from the discard pile and add it to your team.", type:"recover", color:"#6d6875", instant:false},
+  {id:"act_shield", n:"GENIE'S BLESSING", icon:"\ud83d\udee1\ufe0f", desc:"Become immune to all action cards and battle losses for one full round.", type:"shield_player", color:"#4a6fa5", instant:false},
+  {id:"act_chaos", n:"GENIE'S LAUGHTER", icon:"\ud83c\udfb2", desc:"ALL players (including you) randomly swap one hero with another player. Pure chaos.", type:"chaos", color:"#ffb703", instant:true}
+];
+
+// ============ GENIE'S TWIST EVENTS ============
+const TWISTS = [
+  {id:"twist_heal_all", name:"The Genie Feels Generous", icon:"\ud83d\udc9a", desc:"All players heal 25 HP.", type:"heal_all", value:25},
+  {id:"twist_damage_all", name:"The Genie Sneezes", icon:"\ud83e\udd27", desc:"All players take 15 damage. The genie says 'oops.'", type:"damage_all", value:15},
+  {id:"twist_shuffle_heroes", name:"Musical Chairs", icon:"\ud83c\udfb5", desc:"Every player passes their weakest hero to the player on their left.", type:"rotate_weakest"},
+  {id:"twist_buff_random", name:"The Genie Picks a Favorite", icon:"\u2b50", desc:"One random player gets +30 HP. The genie winks at them.", type:"buff_random", value:30},
+  {id:"twist_curse_leader", name:"Tall Poppy Syndrome", icon:"\u2702\ufe0f", desc:"The player with the most heroes loses their newest one to the discard pile.", type:"curse_leader"},
+  {id:"twist_revive_card", name:"Graveyard Shift", icon:"\u26b0\ufe0f", desc:"A random hero returns from the discard pile to a random player's team.", type:"revive_discard"},
+  {id:"twist_steal", name:"The Genie Loves Drama", icon:"\ud83d\ude08", desc:"The player with the fewest heroes steals one from the player with the most.", type:"robin_hood"},
+  {id:"twist_power_surge", name:"Power Surge", icon:"\u26a1", desc:"Next battle deals DOUBLE overkill damage to the loser's player HP.", type:"double_overkill"},
+  {id:"twist_shield_all", name:"Genie's Armistice", icon:"\ud83d\udd4a\ufe0f", desc:"All players are shielded from action cards for one full round.", type:"shield_all"},
+  {id:"twist_draw_all", name:"Raining Cards", icon:"\ud83c\udf27\ufe0f", desc:"Every player draws 2 cards from the deck right now.", type:"draw_all", value:2},
+  {id:"twist_swap_champs", name:"Identity Crisis", icon:"\ud83c\udfad", desc:"Two random players swap their Champions. Yes, really.", type:"swap_champions"},
+  {id:"twist_bounty", name:"Bounty Hunter", icon:"\ud83c\udfaf", desc:"A bounty is placed on the leading player \u2014 next battle against them deals +20 bonus damage.", type:"bounty", value:20},
+  {id:"twist_jackpot", name:"Jackpot!", icon:"\ud83c\udfb0", desc:"One random player draws 3 cards. Everyone else draws 1. Life isn't fair.", type:"jackpot"},
+  {id:"twist_equalizer", name:"The Great Equalizer", icon:"\u2696\ufe0f", desc:"All players' HP is set to the average of all players' current HP.", type:"equalize_hp"},
+  {id:"twist_chaos_discard", name:"Spring Cleaning", icon:"\ud83e\uddf9", desc:"Every player must discard one random non-champion hero. The genie tidies up.", type:"discard_random"}
+];
+
+// ============ CHAMPIONS (outside main deck) ============
+const CHAMPIONS = [
+  {n:"Valkyrie Prime", t:"Storm-born warrior queen", up:"Cleaves through armor with a lightning-forged blade", down:"Cannot sheath her weapon \u2014 always primed for battle", c1:"#ffd700", c2:"#1d3557", atk:90, arm:80, hp:110, spd:75, ability:{name:"Lightning Cleave", desc:"Deal 40 damage, ignoring armor", type:"damage", value:40, ignoreArmor:true, cooldown:3, usesPerBattle:1}},
+  {n:"The Warden", t:"Keeper of the iron gate", up:"Erects unbreakable barriers around allies", down:"Cannot protect himself \u2014 only others", c1:"#4a6fa5", c2:"#1d3557", atk:65, arm:100, hp:130, spd:30, ability:{name:"Iron Shield", desc:"Absorb next 3 incoming attacks", type:"shield", value:3, cooldown:2, usesPerBattle:1}},
+  {n:"Nova Strike", t:"Light made flesh", up:"Explodes in blinding supernovas of energy", down:"Must recharge between blasts \u2014 vulnerable when drained", c1:"#ffeb3b", c2:"#ff6b35", atk:100, arm:55, hp:85, spd:85, ability:{name:"Supernova Blast", desc:"Deal 30 damage, can fire TWICE per battle", type:"damage", value:30, cooldown:1, usesPerBattle:2}},
+  {n:"Mistwalker", t:"Ghost of the forgotten realm", up:"Phases through reality itself", down:"Cannot fully exist in the present for more than moments", c1:"#9d4edd", c2:"#240046", atk:75, arm:95, hp:90, spd:95, ability:{name:"Phase Shift", desc:"Dodge the next 2 attacks guaranteed", type:"dodge", value:2, cooldown:2, usesPerBattle:1}},
+  {n:"Bloodmoon", t:"The eternal huntress", up:"Grows stronger with every drop of blood spilled", down:"Cannot fight in broad daylight \u2014 nocturnal only", c1:"#9d0208", c2:"#370617", atk:95, arm:70, hp:100, spd:80, ability:{name:"Blood Frenzy", desc:"Heal 25 HP and gain +15 ATK for the rest of the battle", type:"heal_buff", value:25, buff:15, cooldown:4, usesPerBattle:1}},
+  {n:"Chronos", t:"Master of the hourglass", up:"Bends time to his will", down:"Ages rapidly with each manipulation", c1:"#cad2c5", c2:"#52796f", atk:80, arm:75, hp:95, spd:100, ability:{name:"Time Stop", desc:"Take 2 extra turns in a row", type:"extra_turn", value:2, cooldown:3, usesPerBattle:1}},
+  {n:"Gaia's Wrath", t:"Earth's chosen protector", up:"Commands stone, tree, and mountain", down:"Disconnected from natural settings is slow and weak", c1:"#2d6a4f", c2:"#1b4332", atk:85, arm:95, hp:120, spd:40, ability:{name:"Stone Skin", desc:"Gain +40 ARM for the rest of the battle", type:"buff_arm", value:40, cooldown:4, usesPerBattle:1}},
+  {n:"Psyke", t:"Mind of a thousand minds", up:"Controls thought, memory, and perception", down:"Overwhelmed by crowds \u2014 her own mind fractures", c1:"#f72585", c2:"#7209b7", atk:88, arm:65, hp:85, spd:90, ability:{name:"Psychic Strike", desc:"Deal 20 damage and stun (enemy skips next turn)", type:"damage_stun", value:20, cooldown:2, usesPerBattle:1}},
+  {n:"Venom Lash", t:"The serpent queen", up:"Strikes with venom that corrodes all defenses", down:"Cannot form lasting alliances \u2014 all allies eventually turn on her", c1:"#52b788", c2:"#081c15", atk:95, arm:60, hp:80, spd:95, ability:{name:"Venom Barrage", desc:"Deal 15 damage per hit, fires THREE TIMES per battle", type:"damage", value:15, cooldown:1, usesPerBattle:3}},
+  {n:"The Judge", t:"Arbiter of final verdicts", up:"Pronounces sentence \u2014 and reality obeys", down:"Must wait for proof before striking \u2014 cannot attack first", c1:"#1d3557", c2:"#0a0a0a", atk:100, arm:85, hp:100, spd:60, ability:{name:"Final Verdict", desc:"Instantly reduce enemy HP by 50%", type:"percent_damage", value:0.5, cooldown:4, usesPerBattle:1}}
+];
+
+// ============ GAME STATE ============
+let state = {
+  players: [],
+  currentTurn: 0,
+  deck: [],
+  discard: [],
+  currentCard: null,
+  teams: {},
+  hp: {},
+  reviveUsed: {},
+  defeated: {},
+  champPicks: {},
+  champPickIdx: 0,
+  battleCount: {},
+  lastAbilityBattle: {},
+  heldActions: {},
+  shielded: {},
+  pendingAction: null,
+  turnCount: 0,
+  gameLog: [],
+  doubleOverkill: false,
+  bountyTarget: null,
+};
+
+// ============ PASS THE PHONE ============
+let passCallback = null;
+function showPassScreen(playerName, cb){
+  $('passName').textContent = playerName.toUpperCase();
+  $('passScreen').classList.add('active');
+  sfx('click');
+  passCallback = cb;
+}
+function dismissPass(){
+  $('passScreen').classList.remove('active');
+  sfx('click');
+  if(passCallback){ passCallback(); passCallback = null; }
+}
+
+// ============ CONFETTI ============
+function launchConfetti(){
+  const box = $('confettiBox');
+  box.innerHTML = '';
+  const colors = ['#e63946','#ffd60a','#52b788','#9d4edd','#ff6b35','#48cae4','#f72585','#ffb703'];
+  for(let i = 0; i < 60; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + '%';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.width = (6 + Math.random()*8) + 'px';
+    piece.style.height = (6 + Math.random()*8) + 'px';
+    piece.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+    piece.style.animationDuration = (1.5 + Math.random()*2) + 's';
+    piece.style.animationDelay = Math.random()*1 + 's';
+    box.appendChild(piece);
+  }
+  setTimeout(()=>{ box.innerHTML = ''; }, 4500);
+}
+
+// ============ WIN PROBABILITY ============
+function calcWinProbability(atkStats, defStats){
+  // Simple estimation based on power totals + speed advantage
+  const aPower = atkStats.atk * 1.2 + atkStats.hp + atkStats.spd * 0.5 - defStats.arm * 0.3;
+  const dPower = defStats.atk * 1.2 + defStats.hp + defStats.spd * 0.5 - atkStats.arm * 0.3;
+  const total = aPower + dPower;
+  if(total <= 0) return 50;
+  return Math.round(Math.max(5, Math.min(95, (aPower / total) * 100)));
+}
+
+
+let audioCtx = null;
+let soundEnabled = true;
+function ensureAudio(){
+  if(!audioCtx){
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e) { soundEnabled = false; }
+  }
+  return audioCtx;
+}
+function tone(freq, dur=0.1, type='square', vol=0.15, slide=0){
+  if(!soundEnabled) return;
+  const ctx = ensureAudio();
+  if(!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    if(slide) osc.frequency.exponentialRampToValueAtTime(freq * slide, ctx.currentTime + dur);
+    gain.gain.value = vol;
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  } catch(e){}
+}
+function sfx(name){
+  switch(name){
+    case 'draw': tone(660, 0.08, 'triangle', 0.12); setTimeout(()=>tone(880, 0.08, 'triangle', 0.12), 60); break;
+    case 'keep': tone(523, 0.1, 'sine', 0.15); setTimeout(()=>tone(784, 0.15, 'sine', 0.15), 80); break;
+    case 'discard': tone(220, 0.15, 'sawtooth', 0.12, 0.5); break;
+    case 'hit': tone(140, 0.08, 'sawtooth', 0.18, 0.4); break;
+    case 'miss': tone(330, 0.06, 'triangle', 0.08, 1.5); break;
+    case 'crit': tone(900, 0.05, 'square', 0.2); setTimeout(()=>tone(1200, 0.08, 'square', 0.2), 50); setTimeout(()=>tone(1500, 0.12, 'square', 0.2), 130); break;
+    case 'victory': [523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f, 0.15, 'sine', 0.18), i*100)); break;
+    case 'defeat': [440,330,220,165].forEach((f,i)=>setTimeout(()=>tone(f, 0.2, 'sawtooth', 0.15), i*120)); break;
+    case 'action': tone(880, 0.1, 'square', 0.15); setTimeout(()=>tone(660, 0.1, 'square', 0.15), 80); setTimeout(()=>tone(880, 0.15, 'square', 0.15), 160); break;
+    case 'shield': tone(440, 0.2, 'sine', 0.12, 1.2); break;
+    case 'heal': [523,659,784].forEach((f,i)=>setTimeout(()=>tone(f, 0.1, 'sine', 0.13), i*60)); break;
+    case 'damage': tone(180, 0.18, 'sawtooth', 0.18, 0.3); break;
+    case 'click': tone(800, 0.03, 'square', 0.08); break;
+    case 'champion': [392,494,587,784].forEach((f,i)=>setTimeout(()=>tone(f, 0.12, 'triangle', 0.16), i*70)); break;
+    case 'gameWin': [523,659,784,1047,1319,1568].forEach((f,i)=>setTimeout(()=>tone(f, 0.18, 'sine', 0.2), i*120)); break;
+  }
+}
+function toggleSound(){
+  soundEnabled = !soundEnabled;
+  if(soundEnabled){ ensureAudio(); sfx('click'); }
+  const btn = $('soundToggle');
+  if(btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+  try { localStorage.setItem('sah_sound', soundEnabled ? '1' : '0'); } catch(e){}
+}
+
+// Restore sound preference
+try {
+  const stored = localStorage.getItem('sah_sound');
+  if(stored !== null) soundEnabled = stored === '1';
+} catch(e){}
+
+// ============ STATS PERSISTENCE ============
+function loadPlayerStats(){
+  try {
+    return JSON.parse(localStorage.getItem('sah_stats') || '{}');
+  } catch(e){ return {}; }
+}
+function savePlayerStats(stats){
+  try { localStorage.setItem('sah_stats', JSON.stringify(stats)); } catch(e){}
+}
+function recordWin(player){
+  const stats = loadPlayerStats();
+  if(!stats[player]) stats[player] = {wins:0, losses:0, gamesPlayed:0};
+  stats[player].wins++;
+  stats[player].gamesPlayed++;
+  savePlayerStats(stats);
+}
+function recordLoss(player){
+  const stats = loadPlayerStats();
+  if(!stats[player]) stats[player] = {wins:0, losses:0, gamesPlayed:0};
+  stats[player].losses++;
+  stats[player].gamesPlayed++;
+  savePlayerStats(stats);
+}
+function getPlayerStats(player){
+  const stats = loadPlayerStats();
+  return stats[player] || {wins:0, losses:0, gamesPlayed:0};
+}
+function clearPlayerStats(){
+  try { localStorage.removeItem('sah_stats'); toast('Stats cleared!'); }
+  catch(e){}
+}
+
+
+function $(id){return document.getElementById(id)}
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function toast(msg){
+  const t=$('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+function closeModal(id){$(id).classList.remove('active')}
+function isAnyModalOpen(){return !!document.querySelector('.modal-overlay.active')}
+function showRules(){$('rulesModal').classList.add('active')}
+
+function showStats(){
+  const stats = loadPlayerStats();
+  const entries = Object.entries(stats);
+  const list = $('statsList');
+  if(entries.length === 0){
+    list.innerHTML = '<p style="text-align:center;color:#666;font-style:italic;padding:1.5rem .5rem">No games played yet! Win a game to see your stats here.</p>';
+  } else {
+    // Sort by wins descending
+    entries.sort((a,b) => b[1].wins - a[1].wins);
+    list.innerHTML = entries.map(([name, s], i) => {
+      const winRate = s.gamesPlayed > 0 ? Math.round((s.wins / s.gamesPlayed) * 100) : 0;
+      const medal = i === 0 ? '🏆' : i === 1 ? '🥈' : i === 2 ? '🥉' : '★';
+      return `<div class="stats-row">
+        <div class="sr-rank">${medal}</div>
+        <div class="sr-name">${name}</div>
+        <div class="sr-record">
+          <span class="sr-wins">${s.wins}W</span> /
+          <span class="sr-losses">${s.losses}L</span>
+          <span class="sr-rate">(${winRate}%)</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  $('statsModal').classList.add('active');
+}
+
+function confirmClearStats(){
+  if(confirm('Reset ALL player stats? This cannot be undone.')){
+    clearPlayerStats();
+    showStats();
+  }
+}
+
+// ============ LANDING / SETUP ============
+function goLanding(){show('landing')}
+function goSetup(){
+  show('setup');
+  renderPlayerCount();
+}
+let selectedCount = 3;
+function renderPlayerCount(){
+  const wrap = $('pcButtons');
+  wrap.innerHTML = '';
+  for(let i=2;i<=6;i++){
+    const b = document.createElement('button');
+    b.className = 'pc-btn' + (i===selectedCount?' selected':'');
+    b.textContent = i;
+    b.onclick = ()=>{selectedCount=i;renderPlayerCount();renderPlayerInputs()};
+    wrap.appendChild(b);
+  }
+  renderPlayerInputs();
+}
+// Store typed names separately so re-renders don't wipe them
+let playerNames = ['','','','','',''];
+
+function renderPlayerInputs(){
+  const list = $('playersList');
+  list.innerHTML = '';
+  for(let i=0;i<selectedCount;i++){
+    const row = document.createElement('div');
+    row.className = 'player-input';
+    const badge = document.createElement('div');
+    badge.className = 'player-badge';
+    badge.textContent = i+1;
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = `Player ${i+1}`;
+    input.maxLength = 14;
+    input.value = playerNames[i] || '';
+    input.dataset.idx = i;
+    input.addEventListener('input', (e)=>{
+      playerNames[i] = e.target.value;
+    });
+    row.appendChild(badge);
+    row.appendChild(input);
+    list.appendChild(row);
+  }
+}
+function startGame(){
+  state.players = [];
+  for(let i=0;i<selectedCount;i++){
+    const name = (playerNames[i] || '').trim();
+    state.players.push(name || `Player ${i+1}`);
+  }
+  // Go to champion select, not game
+  state.champPickIdx = 0;
+  state.champPicks = {};
+  show('champSelect');
+  renderChampSelect();
+}
+
+function renderChampSelect(){
+  const idx = state.champPickIdx;
+  const currentPicker = state.players[idx];
+  $('champPickerName').textContent = `${currentPicker}, pick your champion`;
+  const grid = $('champGrid');
+  grid.innerHTML = '';
+  const taken = Object.values(state.champPicks).map(c => c.n);
+  CHAMPIONS.forEach((c, i) => {
+    const isTaken = taken.includes(c.n);
+    const card = document.createElement('div');
+    card.className = 'champ-card' + (isTaken ? ' taken' : '');
+    card.style.borderLeft = `8px solid ${c.c1}`;
+    const cdText = c.ability.cooldown === 1 ?
+      `EVERY BATTLE · ${c.ability.usesPerBattle}x` :
+      `EVERY ${c.ability.cooldown} BATTLES · ${c.ability.usesPerBattle}x`;
+    card.innerHTML = `
+      <div class="champ-name">${c.n.toUpperCase()}</div>
+      <div class="champ-tag">"${c.t}"</div>
+      <div class="champ-stats">
+        <div class="chs">⚔ ${c.atk}</div>
+        <div class="chs">🛡 ${c.arm}</div>
+        <div class="chs">❤ ${c.hp}</div>
+        <div class="chs">⚡ ${c.spd}</div>
+      </div>
+      <div class="champ-ability">
+        <div class="ca-name">⚡ ${c.ability.name}</div>
+        <div class="ca-desc">${c.ability.desc}</div>
+        <div class="ca-cd">${cdText}</div>
+      </div>
+    `;
+    if(!isTaken){
+      card.onclick = () => pickChampion(i);
+    }
+    grid.appendChild(card);
+  });
+}
+
+function pickChampion(champIdx){
+  const idx = state.champPickIdx;
+  const player = state.players[idx];
+  state.champPicks[player] = {...CHAMPIONS[champIdx]};
+  state.champPickIdx++;
+  if(state.champPickIdx >= state.players.length){
+    dealStartingGame();
+  } else {
+    renderChampSelect();
+  }
+}
+
+function dealStartingGame(){
+  const heroCards = CARDS.map((c,i)=>({...c, id:i, kind:'hero'}));
+  const actionCards = ACTIONS.map((a,i)=>({...a, id:`act_${i}`, kind:'action'}));
+  state.deck = shuffle([...heroCards, ...actionCards]);
+  state.discard = [];
+  state.currentTurn = 0;
+  state.currentCard = null;
+  state.teams = {};
+  state.hp = {};
+  state.reviveUsed = {};
+  state.defeated = {};
+  state.heldActions = {};
+  state.shielded = {};
+  state.draftHands = {};
+  state.draftPickIdx = 0;
+
+  state.players.forEach(p => {
+    state.teams[p] = {heroes:[]};
+    state.hp[p] = 100;
+    state.reviveUsed[p] = false;
+    state.defeated[p] = false;
+    state.heldActions[p] = [];
+    state.shielded[p] = false;
+    const champ = {...state.champPicks[p], id:`champ_${p}`, isChampion:true, cancelled:false, abilityUsedThisBattle:0, kind:'hero'};
+    state.teams[p].heroes.push(champ);
+    state.draftHands[p] = [];
+    let dealt = 0;
+    while(dealt < 7 && state.deck.length > 0){
+      const card = state.deck.pop();
+      if(card.kind === 'action'){
+        state.heldActions[p].push(card);
+      } else {
+        state.draftHands[p].push({...card, cancelled:false});
+      }
+      dealt++;
+    }
+  });
+  show('draft');
+  renderDraft();
+}
+
+function renderDraft(){
+  const idx = state.draftPickIdx;
+  const player = state.players[idx];
+  const hand = state.draftHands[player];
+  const team = state.teams[player];
+  const kept = team.heroes.filter(h => !h.isChampion).length;
+  const maxKeep = 5;
+
+  $('draftPlayer').textContent = player + ', pick ' + (maxKeep - kept) + ' more';
+  $('draftCount').textContent = kept + '/' + maxKeep + ' chosen';
+
+  const grid = $('draftGrid');
+  grid.innerHTML = '';
+
+  if(kept >= maxKeep){
+    hand.forEach(h => state.discard.push(h));
+    state.draftHands[player] = [];
+    state.draftPickIdx++;
+    if(state.draftPickIdx >= state.players.length){
+      show('game');
+      renderGame();
+    } else {
+      showPassScreen(state.players[state.draftPickIdx], function(){ renderDraft(); });
+    }
+    return;
+  }
+
+  hand.forEach(function(h, i){
+    var s = STATS[h.n] || {atk:50,arm:50,hp:50,spd:50};
+    var card = document.createElement('div');
+    card.className = 'draft-card';
+    card.style.borderLeftColor = h.c1;
+    card.innerHTML = '<div class="dc-name">' + h.n.toUpperCase() + '</div>' +
+      '<div class="dc-tag">"' + h.t + '"</div>' +
+      '<div class="dc-stats">ATK:' + s.atk + ' ARM:' + s.arm + ' HP:' + s.hp + ' SPD:' + s.spd + '</div>' +
+      '<div class="dc-power up">' + h.up + '</div>' +
+      '<div class="dc-power down">' + h.down + '</div>';
+    card.onclick = function(){ draftPick(i); };
+    grid.appendChild(card);
+  });
+}
+
+function draftPick(handIdx){
+  var player = state.players[state.draftPickIdx];
+  var hand = state.draftHands[player];
+  var card = hand.splice(handIdx, 1)[0];
+  state.teams[player].heroes.push(card);
+  sfx('keep');
+  renderDraft();
+}
+
+// ============ GAME RENDER ============
+function renderGame(){
+  $('turnName').textContent = state.players[state.currentTurn];
+  $('deckN').textContent = state.deck.length;
+  // Render persistent HP strip
+  var strip = $('hpStrip');
+  if(strip){
+    strip.innerHTML = state.players.map(function(p, i){
+      var hp = state.hp[p] || 0;
+      var isActive = i === state.currentTurn;
+      var isDead = state.defeated[p];
+      var hpClass = hp > 50 ? 'healthy' : hp > 20 ? '' : 'critical';
+      return '<div class="hp-chip ' + (isDead?'dead ':'') + (isActive?'active-player':'') + '">' +
+        '<div class="hc-bg" style="width:' + hp + '%"></div>' +
+        '<div class="hc-name">' + p + (isDead?' \ud83d\udc80':'') + '</div>' +
+        '<div class="hc-hp ' + hpClass + '">\u2764 ' + hp + '</div></div>';
+    }).join('');
+  }
+  renderCardArea();
+  renderTeams();
+}
+
+function renderCardArea(){
+  const area = $('cardArea');
+  if(state.currentCard){
+    const c = state.currentCard;
+    if(c.kind === 'action'){
+      // Action card display
+      area.innerHTML = `
+        <div class="card-actions card-actions-top">
+          ${c.instant
+            ? `<button class="btn sm" onclick="useDrawnAction()">⚡ USE NOW</button>`
+            : `<button class="btn sm" onclick="holdAction()">★ HOLD</button>
+               <button class="btn sm red" onclick="discardCard()">✗ DISCARD</button>`}
+        </div>
+        <div class="action-card" style="--ac:${c.color}">
+          <div class="ac-icon">${c.icon}</div>
+          <div class="ac-name">${c.n}</div>
+          <div class="ac-type">${c.instant ? '⚡ INSTANT' : '★ HOLD CARD'}</div>
+          <div class="ac-desc">${c.desc}</div>
+        </div>
+      `;
+      return;
+    }
+    const s = STATS[c.n] || {atk:50,arm:50,hp:50,spd:50};
+    area.innerHTML = `
+      <div class="card-actions card-actions-top">
+        <button class="btn sm" onclick="keepCard()">★ KEEP</button>
+        <button class="btn sm red" onclick="discardCard()">✗ DISCARD</button>
+      </div>
+      <div class="card-flip-container">
+        <div class="card-flipper">
+          <div class="hero-card" style="--c1:${c.c1};--c2:${c.c2}">
+        <div class="hero-header">
+          <div class="hero-num">#${String(c.id+1).padStart(2,'0')}</div>
+          <div class="hero-name-block">
+            <div class="hero-name">${c.n.toUpperCase()}</div>
+            <div class="hero-tag">"${c.t}"</div>
+          </div>
+        </div>
+        <div class="power up">
+          <span class="power-label">▲ POWER UP</span>
+          <div class="power-text">${c.up}</div>
+        </div>
+        <div class="power down">
+          <span class="power-label">▼ POWER DOWN</span>
+          <div class="power-text">${c.down}</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat atk"><span class="sl">ATK</span><span class="sv">${s.atk}</span></div>
+          <div class="stat arm"><span class="sl">ARM</span><span class="sv">${s.arm}</span></div>
+          <div class="stat hp"><span class="sl">HP</span><span class="sv">${s.hp}</span></div>
+          <div class="stat spd"><span class="sl">SPD</span><span class="sv">${s.spd}</span></div>
+        </div>
+        <div class="hero-art">${heroArtSVG(c.id)}</div>
+      </div>
+      </div>
+      </div>
+    `;
+  } else if(state.deck.length===0){
+    area.innerHTML = `
+      <div class="draw-prompt">
+        <p style="font-family:'Bangers',cursive;font-size:1.4rem;color:var(--red);margin-bottom:.6rem">DECK EMPTY!</p>
+        <p class="hint">Battle on, use action cards, or recover from the discard pile!</p>
+      </div>
+    `;
+  } else {
+    area.innerHTML = `
+      <div class="draw-prompt">
+        <div class="pulse" onclick="drawCard()">DRAW<br>A CARD</div>
+        <p class="hint">${state.discard && state.discard.length > 0 ? state.discard.length+' card(s) in discard pile' : 'Tap to reveal'}</p>
+        <div style="margin-top:1rem">
+          <button class="btn sm red" onclick="openBattle()">⚔ BATTLE</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function heroArtSVG(seed){
+  // Deterministic silhouette + starburst per hero
+  const poses = [
+    '<g><path d="M100 60 L100 95 M100 95 L70 125 M100 95 L130 125 M100 95 L65 85 M100 95 L135 85" stroke="#000" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="100" cy="48" r="15" fill="#000"/></g>',
+    '<g><path d="M100 60 L100 95 M100 95 L72 130 M100 95 L128 130 M100 95 L70 70 M100 95 L128 70" stroke="#000" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="100" cy="48" r="15" fill="#000"/></g>',
+    '<g><path d="M100 60 L100 95 M100 95 L75 128 M100 95 L125 128 M100 95 L130 90 M100 95 L65 90" stroke="#000" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="100" cy="48" r="15" fill="#000"/></g>',
+    '<g><path d="M100 60 L100 95 M100 95 L72 130 M100 95 L128 130 M100 80 L140 110 M100 80 L60 110" stroke="#000" stroke-width="14" stroke-linecap="round" fill="none"/><circle cx="100" cy="48" r="15" fill="#000"/></g>',
+  ];
+  const pose = poses[seed % 4];
+  return `<svg viewBox="0 0 200 160" preserveAspectRatio="xMidYMid meet">
+    <polygon points="100,20 112,45 140,30 132,60 165,58 145,82 180,95 150,110 175,138 140,132 148,160 115,145 105,165 95,145 62,160 70,132 35,138 60,110 30,95 65,82 45,58 78,60 70,30 98,45" fill="#ffeb3b" stroke="#000" stroke-width="2"/>
+    ${pose}
+  </svg>`;
+}
+
+function renderTeams(){
+  const list = $('teamsList');
+  list.innerHTML = '';
+  state.players.forEach((p,i)=>{
+    const team = state.teams[p];
+    const isActive = i===state.currentTurn;
+    const count = team.heroes.length;
+    const cancelled = team.heroes.filter(h=>h.cancelled).length;
+    const hp = state.hp[p] ?? 100;
+    const hpPct = Math.max(0, hp);
+    const defeated = state.defeated[p];
+    const revived = state.reviveUsed[p];
+    const div = document.createElement('div');
+    div.className = 'team' + (isActive?' active':'') + (defeated?' defeated':'');
+    div.innerHTML = `
+      <div class="team-name">
+        <span>${p}${defeated?' 💀':''}${revived && !defeated?' ✨':''}</span>
+        <span class="team-count">${count}/7 · ${cancelled}✓</span>
+      </div>
+      <div class="player-hp">
+        <div class="php-bar"><div class="php-fill ${hpPct<30?'low':''}" style="width:${hpPct}%"></div></div>
+        <div class="php-label">❤ ${hp}/100${revived?' (revived)':''}</div>
+      </div>
+      <div class="team-heroes">
+        ${team.heroes.length===0 ? '<span class="team-empty">no heroes yet</span>' : team.heroes.map((h,idx)=>{
+          const s = h.isChampion ? {atk:h.atk,arm:h.arm,hp:h.hp,spd:h.spd} : (STATS[h.n] || {atk:50,arm:50,hp:50,spd:50});
+          const idLabel = h.isChampion ? '★' : `#${String(h.id+1).padStart(2,'0')}`;
+          const cls = (h.cancelled?'cancelled ':'') + (h.isChampion?'champion':'');
+          return `<div class="mini-hero ${cls}" onclick="toggleCancel('${p}',${idx})">${idLabel} ${h.n}<span class="ms">⚔${s.atk}/🛡${s.arm}</span></div>`;
+        }).join('')}
+      </div>
+      ${(state.heldActions[p] && state.heldActions[p].length > 0) ? `
+        <div class="held-actions">
+          <div class="held-label">★ HELD ACTIONS</div>
+          ${state.heldActions[p].map((a,idx)=>{
+            const blocked = i!==state.currentTurn || state.currentCard !== null || isAnyModalOpen();
+            return `<button class="held-action-btn" onclick="useHeldAction('${p}',${idx})" ${blocked?'disabled':''}>${a.icon} ${a.n}</button>`;
+          }).join('')}
+        </div>
+      ` : ''}
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ============ GAME ACTIONS ============
+function drawCard(){
+  if(state.deck.length===0){toast('Deck is empty!');return}
+  state.currentCard = state.deck.pop();
+  $('deckN').textContent = state.deck.length;
+  sfx('draw');
+  const player = state.players[state.currentTurn];
+  if(state.currentCard.kind === 'action'){
+    logEvent('action', `${player} drew action card: ${state.currentCard.icon} ${state.currentCard.n}`);
+  } else {
+    logEvent('draw', `${player} drew ${state.currentCard.n}`);
+  }
+  renderCardArea();
+}
+function keepCard(){
+  if(!state.currentCard)return;
+  const player = state.players[state.currentTurn];
+  const team = state.teams[player];
+  if(team.heroes.length>=8){
+    toast('Team is full! (champion + 7)');
+    return;
+  }
+  team.heroes.push({...state.currentCard,cancelled:false});
+  state.currentCard = null;
+  sfx('keep');
+  endTurn();
+}
+function discardCard(){
+  if(state.currentCard){
+    state.discard.push(state.currentCard);
+  }
+  state.currentCard = null;
+  sfx('discard');
+  endTurn();
+}
+function holdAction(){
+  if(!state.currentCard || state.currentCard.kind !== 'action') return;
+  const player = state.players[state.currentTurn];
+  state.heldActions[player].push(state.currentCard);
+  toast(`${player} holds ${state.currentCard.n}!`);
+  state.currentCard = null;
+  sfx('action');
+  endTurn();
+}
+function useDrawnAction(){
+  if(!state.currentCard || state.currentCard.kind !== 'action') return;
+  const action = state.currentCard;
+  state.currentCard = null;
+  fireAction(action, state.players[state.currentTurn]);
+}
+function endTurn(){
+  checkForTwist();
+  let attempts = 0;
+  do {
+    state.currentTurn = (state.currentTurn + 1) % state.players.length;
+    attempts++;
+  } while(state.defeated[state.players[state.currentTurn]] && attempts <= state.players.length);
+  if(state.currentTurn === 0){
+    state.players.forEach(p => { if(state.shielded[p]) state.shielded[p] = false; });
+  }
+  checkLastStanding();
+  // Show pass-the-phone screen if there are 2+ alive players
+  const alive = state.players.filter(p => !state.defeated[p]);
+  if(alive.length > 1){
+    showPassScreen(state.players[state.currentTurn], ()=>renderGame());
+  } else {
+    renderGame();
+  }
+}
+function checkLastStanding(){
+  const alive = state.players.filter(p => !state.defeated[p]);
+  if(alive.length === 1 && state.players.length > 1){
+    const winner = alive[0];
+    // Record stats
+    recordWin(winner);
+    state.players.forEach(p => { if(p !== winner) recordLoss(p); });
+    // Show winner with stats
+    const stats = getPlayerStats(winner);
+    $('winnerName').textContent = winner.toUpperCase();
+    const winnerSubEl = $('winnerSub');
+    if(winnerSubEl) winnerSubEl.textContent = `${stats.wins} win${stats.wins===1?'':'s'} • ${stats.losses} loss${stats.losses===1?'':'es'}`;
+    $('winnerModal').classList.add('active');
+    logEvent('win', `🏆 ${winner} WINS THE GAME!`);
+    sfx('gameWin');
+    launchConfetti();
+  }
+}
+function toggleCancel(player, idx){
+  const hero = state.teams[player].heroes[idx];
+  hero.cancelled = !hero.cancelled;
+  renderTeams();
+  checkWinner(player);
+}
+
+// ============ GAME LOG (for replay) ============
+function logEvent(type, text){
+  state.gameLog.push({turn: state.turnCount, player: state.players[state.currentTurn], type, text, timestamp: Date.now()});
+}
+
+// ============ GENIE'S TWIST ============
+const TWIST_INTERVAL = 4; // fire every N turns
+let pendingTwist = null;
+
+function checkForTwist(){
+  state.turnCount++;
+  if(state.turnCount > 0 && state.turnCount % TWIST_INTERVAL === 0){
+    // Pick a random twist
+    const twist = TWISTS[Math.floor(Math.random() * TWISTS.length)];
+    pendingTwist = twist;
+    $('twistIcon').textContent = twist.icon;
+    $('twistTitle').textContent = twist.name.toUpperCase();
+    $('twistDesc').textContent = twist.desc;
+    $('twistModal').classList.add('active');
+    sfx('action');
+    logEvent('twist', `🧞 ${twist.icon} ${twist.name}: ${twist.desc}`);
+  }
+}
+
+function dismissTwist(){
+  closeModal('twistModal');
+  if(pendingTwist){
+    executeTwist(pendingTwist);
+    pendingTwist = null;
+  }
+  renderGame();
+}
+
+function executeTwist(twist){
+  const alive = state.players.filter(p => !state.defeated[p]);
+  if(alive.length < 2) return;
+  
+  switch(twist.type){
+    case 'heal_all': {
+      alive.forEach(p => { state.hp[p] = Math.min(100, state.hp[p] + twist.value); });
+      toast(`💚 All players healed ${twist.value} HP!`);
+      sfx('heal');
+      break;
+    }
+    case 'damage_all': {
+      alive.forEach(p => applyPlayerDamage(p, twist.value, '(genie sneeze!)'));
+      break;
+    }
+    case 'rotate_weakest': {
+      // Each player passes their weakest (lowest total stats) non-champion hero to the left
+      const toPass = {};
+      alive.forEach(p => {
+        const nonChamp = state.teams[p].heroes.filter(h => !h.isChampion);
+        if(nonChamp.length === 0) return;
+        let weakest = nonChamp[0], weakIdx = state.teams[p].heroes.indexOf(weakest);
+        let weakTotal = 0;
+        nonChamp.forEach(h => {
+          const s = getStats(h);
+          const total = s.atk + s.arm + s.hp + s.spd;
+          if(!weakTotal || total < weakTotal){ weakest = h; weakTotal = total; weakIdx = state.teams[p].heroes.indexOf(h); }
+        });
+        toPass[p] = {hero: weakest, idx: weakIdx};
+      });
+      const keys = Object.keys(toPass);
+      if(keys.length >= 2){
+        // Remove all, then give to left neighbor
+        const removed = {};
+        keys.forEach(p => { removed[p] = state.teams[p].heroes.splice(toPass[p].idx, 1)[0]; });
+        keys.forEach((p, i) => {
+          const target = keys[(i + 1) % keys.length];
+          if(state.teams[target].heroes.length < 8){
+            removed[p].cancelled = false;
+            state.teams[target].heroes.push(removed[p]);
+          }
+        });
+      }
+      toast(`🎵 Heroes passed left!`);
+      sfx('action');
+      break;
+    }
+    case 'buff_random': {
+      const lucky = alive[Math.floor(Math.random() * alive.length)];
+      state.hp[lucky] = Math.min(100, state.hp[lucky] + twist.value);
+      toast(`⭐ ${lucky} gains ${twist.value} HP! The genie winks.`);
+      sfx('heal');
+      break;
+    }
+    case 'curse_leader': {
+      let leader = alive[0], maxH = 0;
+      alive.forEach(p => { if(state.teams[p].heroes.length > maxH){ maxH = state.teams[p].heroes.length; leader = p; } });
+      const nonChamp = state.teams[leader].heroes.filter(h => !h.isChampion);
+      if(nonChamp.length > 0){
+        const newest = nonChamp[nonChamp.length - 1];
+        const idx = state.teams[leader].heroes.indexOf(newest);
+        state.teams[leader].heroes.splice(idx, 1);
+        state.discard.push(newest);
+        toast(`✂️ ${leader} loses ${newest.n}!`);
+        sfx('discard');
+      }
+      break;
+    }
+    case 'revive_discard': {
+      if(state.discard.length > 0){
+        const card = state.discard.splice(Math.floor(Math.random() * state.discard.length), 1)[0];
+        const target = alive[Math.floor(Math.random() * alive.length)];
+        if(state.teams[target].heroes.length < 8 && card.kind !== 'action'){
+          card.cancelled = false;
+          state.teams[target].heroes.push(card);
+          toast(`⚰️ ${card.n} rises from the grave to ${target}!`);
+        } else if(card.kind === 'action'){
+          state.heldActions[target].push(card);
+          toast(`⚰️ ${target} recovers ${card.n}!`);
+        }
+        sfx('champion');
+      }
+      break;
+    }
+    case 'robin_hood': {
+      let poorest = alive[0], richest = alive[0];
+      alive.forEach(p => {
+        if(state.teams[p].heroes.length < state.teams[poorest].heroes.length) poorest = p;
+        if(state.teams[p].heroes.length > state.teams[richest].heroes.length) richest = p;
+      });
+      if(poorest !== richest){
+        const nonChamp = state.teams[richest].heroes.filter(h => !h.isChampion);
+        if(nonChamp.length > 0 && state.teams[poorest].heroes.length < 8){
+          const pick = nonChamp[Math.floor(Math.random() * nonChamp.length)];
+          const idx = state.teams[richest].heroes.indexOf(pick);
+          state.teams[richest].heroes.splice(idx, 1);
+          pick.cancelled = false;
+          state.teams[poorest].heroes.push(pick);
+          toast(`😈 ${poorest} steals ${pick.n} from ${richest}!`);
+          sfx('action');
+        }
+      }
+      break;
+    }
+    case 'double_overkill': {
+      state.doubleOverkill = true;
+      toast(`⚡ Next battle: DOUBLE overkill damage!`);
+      sfx('crit');
+      break;
+    }
+    case 'shield_all': {
+      alive.forEach(p => { state.shielded[p] = true; });
+      toast(`🕊️ All players shielded for one round!`);
+      sfx('shield');
+      break;
+    }
+    case 'draw_all': {
+      alive.forEach(p => {
+        for(let i = 0; i < twist.value && state.deck.length > 0; i++){
+          const card = state.deck.pop();
+          if(card.kind === 'action'){
+            state.heldActions[p].push(card);
+          } else if(state.teams[p].heroes.length < 8){
+            state.teams[p].heroes.push({...card, cancelled:false});
+          } else {
+            state.discard.push(card);
+          }
+        }
+      });
+      toast(`🌧️ Everyone draws ${twist.value} cards!`);
+      sfx('draw');
+      break;
+    }
+    case 'swap_champions': {
+      if(alive.length >= 2){
+        const i = Math.floor(Math.random() * alive.length);
+        let j = (i + 1 + Math.floor(Math.random() * (alive.length - 1))) % alive.length;
+        const pA = alive[i], pB = alive[j];
+        const champIdxA = state.teams[pA].heroes.findIndex(h => h.isChampion);
+        const champIdxB = state.teams[pB].heroes.findIndex(h => h.isChampion);
+        if(champIdxA >= 0 && champIdxB >= 0){
+          const tmp = state.teams[pA].heroes[champIdxA];
+          state.teams[pA].heroes[champIdxA] = state.teams[pB].heroes[champIdxB];
+          state.teams[pB].heroes[champIdxB] = tmp;
+          toast(`🎭 ${pA} and ${pB} swap Champions!`);
+          sfx('action');
+        }
+      }
+      break;
+    }
+    case 'bounty': {
+      let leader = alive[0];
+      alive.forEach(p => { if(state.hp[p] > state.hp[leader]) leader = p; });
+      state.bountyTarget = leader;
+      toast(`🎯 Bounty on ${leader}! +${twist.value} bonus damage against them!`);
+      sfx('crit');
+      break;
+    }
+    case 'jackpot': {
+      const lucky = alive[Math.floor(Math.random() * alive.length)];
+      alive.forEach(p => {
+        const draws = p === lucky ? 3 : 1;
+        for(let i = 0; i < draws && state.deck.length > 0; i++){
+          const card = state.deck.pop();
+          if(card.kind === 'action') state.heldActions[p].push(card);
+          else if(state.teams[p].heroes.length < 8) state.teams[p].heroes.push({...card, cancelled:false});
+          else state.discard.push(card);
+        }
+      });
+      toast(`🎰 ${lucky} hits JACKPOT (3 cards)! Everyone else gets 1.`);
+      sfx('champion');
+      break;
+    }
+    case 'equalize_hp': {
+      const total = alive.reduce((sum, p) => sum + state.hp[p], 0);
+      const avg = Math.round(total / alive.length);
+      alive.forEach(p => { state.hp[p] = avg; });
+      toast(`⚖️ All HP set to ${avg}!`);
+      sfx('action');
+      break;
+    }
+    case 'discard_random': {
+      alive.forEach(p => {
+        const nonChamp = state.teams[p].heroes.filter(h => !h.isChampion);
+        if(nonChamp.length > 0){
+          const victim = nonChamp[Math.floor(Math.random() * nonChamp.length)];
+          const idx = state.teams[p].heroes.indexOf(victim);
+          state.teams[p].heroes.splice(idx, 1);
+          state.discard.push(victim);
+        }
+      });
+      toast(`🧹 Everyone loses a random hero!`);
+      sfx('discard');
+      break;
+    }
+  }
+}
+
+// ============ REPLAY ============
+function showReplay(){
+  const content = $('replayContent');
+  if(state.gameLog.length === 0){
+    content.innerHTML = '<p style="text-align:center;color:#666;font-style:italic;padding:1rem">No events recorded yet.</p>';
+  } else {
+    content.innerHTML = state.gameLog.map(e => {
+      return `<div class="replay-entry ${e.type}"><span class="re-turn">T${e.turn}</span> ${e.text}</div>`;
+    }).join('');
+  }
+  $('replayModal').classList.add('active');
+}
+
+// ============ ATTACK FLAVOR ============
+// Generic fallbacks for heroes without specific entries
+const GENERIC_ATTACKS = [
+  "💥 {0} unleashes their power on {1} for {2}!",
+  "💥 {0} strikes {1} with full force — {2} damage!",
+  "💥 {0} channels the genie's gift into {1} for {2}!",
+  "💥 The genie grins as {0} slams {1} for {2}!",
+  "💥 {0}'s curse becomes {1}'s problem — {2} damage!",
+  "💥 {0} lands a devastating blow on {1} — {2}!",
+];
+const ATTACKS = {
+  "Pyrenna": ["🌋 {0} erupts VOLCANOS under {1} for {2}!", "🌋 Lava engulfs {1} — {2} damage!", "🌋 {0}'s fingertips melt {1} for {2}!"],
+  "Stormcalled Iggy": ["🌪 {0}'s hurricane SLAMS {1} for {2}!", "🌪 200mph winds shred {1} — {2}!", "🌪 {0} tornados through {1} for {2}!"],
+  "Marrow": ["🦴 {0}'s adamantine fist CRACKS {1} for {2}!", "🦴 Unbreakable bones crush {1} — {2}!", "🦴 {0} headbutts {1} with a skull of steel — {2}!"],
+  "Flashpoint Greta": ["⚡ {0} teleports behind {1} and strikes — {2}!", "⚡ Blink. Strike. {1} takes {2}!", "⚡ {0} appears, hits for {2}, vanishes!"],
+  "The Hollow King": ["💀 {0}'s famine field drains {1} for {2}!", "💀 {1} starves in {0}'s presence — {2}!", "💀 The Hollow King feeds on {1} — {2}!"],
+  "Glassbones Charlene": ["🩰 {0} pirouettes through {1} for {2}!", "🩰 A graceful kick shatters {1} — {2}!", "🩰 {0} dances over {1} for {2}!"],
+  "Daggermouth": ["🗣 {0} SCREAMS through {1} for {2}!", "🗣 Her voice cuts steel AND {1} — {2}!", "🗣 140 decibels hit {1} for {2}!"],
+  "Verdant Wren": ["🌿 {0}'s vines CRUSH {1} for {2}!", "🌿 A redwood sprouts through {1} — {2}!", "🌿 Nature's wrath hits {1} for {2}!"],
+  "Lord Tideturn": ["🌊 {0} slams a tidal wave into {1} for {2}!", "🌊 The ocean obeys — {1} takes {2}!", "🌊 {0} drowns {1} in a wall of water — {2}!"],
+  "Embergirl Ruth": ["☀️ {0}'s glow SEARS {1} for {2}!", "☀️ Stadium-bright light burns {1} — {2}!", "☀️ {0} blinds and blasts {1} — {2}!"],
+  "Multitude Mike": ["👥 All 50 Mikes punch {1} at once — {2}!", "👥 A swarm of Mikes overwhelms {1} — {2}!", "👥 {0} x 50 deliver the beating — {2}!"],
+  "The Shrinking Violet": ["🐜 {0} sneaks inside {1}'s defenses — {2}!", "🐜 Ant-sized strike to the eye! {2}!", "🐜 {0} hits from where you can't see — {2}!"],
+  "Big Bertha": ["👊 {0}'s 80ft fist FLATTENS {1} — {2}!", "👊 She steps on {1} — {2} damage!", "👊 {0} punches through a skyscraper and {1} — {2}!"],
+  "Eyes-Forever-Open Ozzy": ["👁 {0} sees {1}'s weak point in 8 spectrums — {2}!", "👁 Perfect vision, perfect strike — {2}!", "👁 {0} watches {1} crumble for {2}!"],
+  "Gillgirl Penny": ["🐟 {0} hits {1} with a 80mph tidal rush — {2}!", "🐟 Water queen strikes — {1} takes {2}!", "🐟 {0} body-slams {1} from the deep — {2}!"],
+  "Iron Lung Larry": ["💨 {0} exhales 7 YEARS of breath at {1} — {2}!", "💨 The pressure wave hits {1} for {2}!", "💨 {0}'s infinite lungs blast {1} — {2}!"],
+  "Featherfist Frankie": ["🥊 {0}'s freight-train punch hits {1} — {2}!", "🥊 One hit. One wall. {1} goes through both — {2}!", "🥊 {0} breaks the sound barrier into {1} — {2}!"],
+  "Quickfingers Queso": ["🤲 {0}'s hands hit {1} 400 times per second — {2}!", "🤲 Speed-typing on {1}'s face — {2}!", "🤲 {0}'s buzzing fists connect — {2}!"],
+  "Nine-Lives Nina": ["🐱 {0} attacks recklessly (she'll come back) — {2}!", "🐱 Kamikaze strike! {1} takes {2}!", "🐱 {0} throws herself at {1} — {2}!"],
+  "Skinshift Sasha": ["🧬 {0} sheds her skin mid-strike — {2} to {1}!", "🧬 A fresh layer of fury hits {1} — {2}!", "🧬 {0}'s smooth skin hides a brutal fist — {2}!"],
+  "Mister Memorize": ["🧠 {0} recalls {1}'s weakness perfectly — {2}!", "🧠 Total recall, total pain — {2}!", "🧠 {0} remembers how to hurt {1} — {2}!"],
+  "Blank Slate Beck": ["🫥 {0} erases {1}'s defense memory — {2}!", "🫥 {1} forgets to block — {2}!", "🫥 {0}'s touch wipes {1}'s guard — {2}!"],
+  "Mindreader Miguel": ["🧠 {0} reads {1}'s next move and counters — {2}!", "🧠 14 inner voices say 'hit {1}' — {2}!", "🧠 {0} knows what {1} will do. Punishes it. {2}!"],
+  "Lockbox Lena": ["🔒 {0}'s psychic void crushes {1} — {2}!", "🔒 Static fills {1}'s mind — {2} damage!", "🔒 {0} is unreadable and unstoppable — {2}!"],
+  "Pre-Cog Penelope": ["🔮 {0} hits where {1} WILL be — {2}!", "🔮 Future-sight strike! {2}!", "🔮 {0} punches 30 seconds ahead into {1} — {2}!"],
+  "The Backwards Man": ["⏪ {0} un-does {1}'s dodge — {2}!", "⏪ Time flows wrong and {1} takes {2}!", "⏪ {0} ages backward into a punch — {2}!"],
+  "Lullaby Luna": ["🎵 {0} sings {1} into a coma — {2}!", "🎵 One note and {1} drops — {2}!", "🎵 Luna's lullaby is a weapon — {2} to {1}!"],
+  "Dr. Empath": ["💔 {0} weaponizes {1}'s feelings — {2}!", "💔 {1} feels 14 strangers' pain at once — {2}!", "💔 Emotional overload hits {1} — {2}!"],
+  "The Gospel Truth": ["📖 '{1} is hurt.' It becomes true — {2}!", "📖 {0} speaks doom — {2} to {1}!", "📖 Reality obeys {0}'s words — {2}!"],
+  "Silent Sam": ["🤫 {0} strikes in perfect silence — {2}!", "🤫 {1} never hears it coming — {2}!", "🤫 100ft of silence hides a brutal hit — {2}!"],
+  "Jackpot Jeb": ["🎰 Lucky punch! {1} takes {2}!", "🎰 The coin says PAIN — {2}!", "🎰 Against all odds, {0} connects — {2}!"],
+  "Hard-Luck Hannah": ["🔥 Catastrophe befalls {1} — {2}!", "🔥 A piano falls on {1} — {2}!", "🔥 Freak accident! {1} takes {2}!"],
+  "Murphy": ["💣 Everything goes wrong for {1} — {2}!", "💣 Murphy's law strikes {1} — {2}!", "💣 {1}'s shoelace catches fire — {2}!"],
+  "Rule of Threes": ["3️⃣ Third strike's the charm — {2} to {1}!", "3️⃣ {0}'s guaranteed hit lands — {2}!", "3️⃣ One. Two. THREE. {1} takes {2}!"],
+  "The Pause": ["⏱ {0} FREEZES time and hits {1} ten times — {2}!", "⏱ Time stops. Pain doesn't. {2}!", "⏱ {0} steals a moment to destroy {1} — {2}!"],
+  "Echo From Tomorrow": ["📱 Future-self says 'hit now' — {1} takes {2}!", "📱 {0}'s phone buzzes: 'STRIKE!' {2}!", "📱 A text from tomorrow guides {0}'s fist — {2}!"],
+  "The Forever Door": ["🚪 {0} portals a fist into {1}'s face — {2}!", "🚪 A door opens. A punch comes through. {2}!", "🚪 {0} opens 600 portals and {1} falls into one — {2}!"],
+  "Rooted Rufus": ["🪨 {1} runs into {0}'s immovable body — {2}!", "🪨 The ground shakes. {1} takes {2}!", "🪨 {0} doesn't move. {1} breaks against him — {2}!"],
+  "Two-Place Tina": ["👯 Both Tinas hit {1} from different cities — {2}!", "👯 Double body, double damage — {2}!", "👯 {0} punches {1} from two places at once — {2}!"],
+  "King Midas Jr.": ["✨ {0}'s golden touch burns {1} — {2}!", "✨ {1} begins to gild — {2} damage!", "✨ 24k pain delivered to {1} — {2}!"],
+  "Rust Belt Rita": ["🦠 {0} corrodes {1}'s defenses — {2}!", "🦠 Metal turns to dust around {1} — {2}!", "🦠 {0}'s decay aura eats {1} for {2}!"],
+  "Diamond Daughter": ["💎 {0}'s diamond fist SHATTERS into {1} — {2}!", "💎 Bulletproof knuckles vs {1} — {2}!", "💎 Harder than diamond, harder than {1} — {2}!"],
+  "Wickerman Wes": ["🔥 {0} ignites into a 40ft pillar and charges {1} — {2}!", "🔥 Living flame hits {1} — {2}!", "🔥 {0} burns through {1} — {2}!"],
+  "Ghosthand Gloria": ["👻 {0} phases her fist through {1}'s armor — {2}!", "👻 An intangible grab finds {1}'s heart — {2}!", "👻 {0} reaches THROUGH {1} for {2}!"],
+  "Charisma Calvin": ["🗣 '{1}, hurt yourself.' {2} damage!", "🗣 {0} says 'fall down' — {1} does — {2}!", "🗣 {0}'s voice IS the weapon — {2}!"],
+  "Invisible Ingrid": ["👁‍🗨 {0} strikes from nowhere — {2}!", "👁‍🗨 {1} can't see her coming — {2}!", "👁‍🗨 Invisible fist meets {1}'s jaw — {2}!"],
+  "Magnet Mona": ["🧲 {0}'s 4 million friends distract {1} — {2}!", "🧲 {1} can't focus through the friendship — {2}!", "🧲 {0} weaponizes popularity — {2}!"],
+  "The Translator": ["📖 {0} curses {1} in 47 languages — {2}!", "📖 The rocks scream and so does {1} — {2}!", "📖 {0}'s fist speaks fluent pain — {2}!"],
+  "Last-Word Larry": ["🎤 {0} says '{1} loses' and they DO — {2}!", "🎤 'Whatever, dude.' {1} takes {2}!", "🎤 The last word hurts — {2} to {1}!"],
+};
+
+function getAttackLine(att, def, dmg){
+  const lines = ATTACKS[att.n] || GENERIC_ATTACKS;
+  const line = lines[Math.floor(Math.random()*lines.length)];
+  return line.replace('{0}', att.n).replace('{1}', def.n).replace('{2}', dmg);
+}
+
+function getCritLine(att, def, dmg){
+  const comicSfx = ['POW!','BAM!','WHAM!','KRAKOOM!','SMASH!','ZOUNDS!','SOCKO!','KABLAM!'];
+  const pick = comicSfx[Math.floor(Math.random()*comicSfx.length)];
+  return `💥 ${pick} {0} lands a CRITICAL HIT on {1} for {2}!`.replace('{0}',att.n).replace('{1}',def.n).replace('{2}',dmg);
+}
+
+function getMissLine(att, def){
+  const lines = [
+    `💨 ${att.n} swings and MISSES ${def.n}!`,
+    `💨 ${def.n} dodges at the last second!`,
+    `💨 ${att.n}'s attack goes wide!`,
+    `💨 ${def.n} sidesteps the blow!`,
+  ];
+  return lines[Math.floor(Math.random()*lines.length)];
+}
+
+function getFumbleLine(att){
+  const lines = [
+    `🤦 ${att.n} rolled a 1 — trips over own cape!`,
+    `🤦 ${att.n} fumbles spectacularly!`,
+    `🤦 ${att.n} punches themselves! Embarrassing!`,
+    `🤦 ${att.n} face-plants! Nat 1!`,
+  ];
+  return lines[Math.floor(Math.random()*lines.length)];
+}
+
+// ============ ACTION CARD SYSTEM ============
+function fireAction(action, player){
+  switch(action.type){
+    case 'heal_self': {
+      state.hp[player] = Math.min(100, state.hp[player] + action.value);
+      toast(`💚 ${player} healed ${action.value} HP!`);
+      sfx('heal');
+      renderTeams();
+      endTurn();
+      break;
+    }
+    case 'draw': {
+      const drawn = [];
+      for(let i = 0; i < action.value && state.deck.length > 0; i++){
+        drawn.push(state.deck.pop());
+      }
+      const team = state.teams[player];
+      let added = 0;
+      drawn.forEach(c => {
+        if(c.kind === 'action'){
+          state.heldActions[player].push(c);
+        } else if(team.heroes.length < 8){
+          team.heroes.push({...c, cancelled:false});
+          added++;
+        } else {
+          state.discard.push(c);
+        }
+      });
+      toast(`🎴 ${player} drew ${drawn.length} cards!`);
+      renderGame();
+      endTurn();
+      break;
+    }
+    case 'chaos': {
+      // Each player swaps one random hero with a random other player
+      const playerList = state.players.filter(p => !state.defeated[p] && state.teams[p].heroes.length > 0);
+      if(playerList.length < 2){ toast('Not enough players!'); endTurn(); return; }
+      // For each player, pick a random target and swap one random hero
+      const swaps = [];
+      playerList.forEach(p => {
+        const others = playerList.filter(o => o !== p);
+        if(others.length === 0) return;
+        const target = others[Math.floor(Math.random() * others.length)];
+        const myIdx = Math.floor(Math.random() * state.teams[p].heroes.length);
+        const theirIdx = Math.floor(Math.random() * state.teams[target].heroes.length);
+        swaps.push({p, target, myIdx, theirIdx});
+      });
+      // Apply atomically
+      swaps.forEach(s => {
+        const a = state.teams[s.p].heroes[s.myIdx];
+        const b = state.teams[s.target].heroes[s.theirIdx];
+        if(a && b){
+          state.teams[s.p].heroes[s.myIdx] = b;
+          state.teams[s.target].heroes[s.theirIdx] = a;
+        }
+      });
+      toast(`🎲 GENIE'S LAUGHTER! Heroes scattered!`);
+      sfx('action');
+      renderTeams();
+      endTurn();
+      break;
+    }
+    case 'steal':
+    case 'discard_target':
+    case 'swap':
+    case 'damage_player': {
+      // Need target selection
+      openActionTarget(action, player);
+      return; // don't end turn yet
+    }
+    case 'recover': {
+      openRecoverPicker(player);
+      return;
+    }
+    case 'shield_player': {
+      state.shielded[player] = true;
+      toast(`🛡️ ${player} is SHIELDED for one round!`);
+      sfx('shield');
+      renderTeams();
+      endTurn();
+      break;
+    }
+    case 'revive': {
+      // Hold this — auto-fires when player drops to 0
+      state.heldActions[player].push(action);
+      toast(`✨ ${player} holds Second Wind!`);
+      endTurn();
+      break;
+    }
+  }
+}
+
+function openActionTarget(action, player){
+  state.pendingAction = {action, player};
+  const content = $('battleModalContent');
+  let html = `<h2>${action.icon} ${action.n}</h2><p class="picker-sub">${action.desc}</p><div class="challenge-list">`;
+  
+  if(action.type === 'damage_player'){
+    state.players.forEach(p => {
+      if(p === player || state.defeated[p]) return;
+      html += `<div class="challenge-item" onclick="completeAction('${p}',null)"><strong>${p}</strong><div class="small">❤ ${state.hp[p]}/100</div></div>`;
+    });
+  } else {
+    state.players.forEach(p => {
+      if(p === player || state.defeated[p]) return;
+      state.teams[p].heroes.forEach((h, idx) => {
+        const s = h.isChampion ? {atk:h.atk,arm:h.arm} : (STATS[h.n] || {atk:50,arm:50});
+        html += `<div class="challenge-item" onclick="completeAction('${p}',${idx})"><strong>${p} — ${h.n}</strong><div class="small">⚔${s.atk} 🛡${s.arm}</div></div>`;
+      });
+    });
+  }
+  
+  html += `</div><div class="btn-row"><button class="btn sm" onclick="cancelAction()">CANCEL</button></div>`;
+  content.innerHTML = html;
+  $('battleModal').classList.add('active');
+}
+
+function completeAction(targetPlayer, targetIdx){
+  const {action, player} = state.pendingAction;
+  if(state.shielded[targetPlayer]){
+    toast(`🛡️ ${targetPlayer} is shielded! Action blocked!`);
+    cancelAction();
+    return;
+  }
+  switch(action.type){
+    case 'steal': {
+      if(state.teams[player].heroes.length >= 8){
+        toast('Your team is full!');
+        cancelAction();
+        return;
+      }
+      const hero = state.teams[targetPlayer].heroes.splice(targetIdx, 1)[0];
+      hero.cancelled = false;
+      state.teams[player].heroes.push(hero);
+      toast(`🤝 ${player} stole ${hero.n}!`);
+      break;
+    }
+    case 'discard_target': {
+      const hero = state.teams[targetPlayer].heroes.splice(targetIdx, 1)[0];
+      if(hero.kind === 'hero' && !hero.isChampion) state.discard.push(hero);
+      toast(`💀 ${hero.n} BANISHED!`);
+      break;
+    }
+    case 'swap': {
+      // Need to also pick which of YOUR heroes to swap. For simplicity: swap with newest.
+      const myTeam = state.teams[player];
+      if(myTeam.heroes.length === 0){ cancelAction(); return; }
+      const myIdx = myTeam.heroes.length - 1;
+      const mine = myTeam.heroes[myIdx];
+      const theirs = state.teams[targetPlayer].heroes[targetIdx];
+      myTeam.heroes[myIdx] = theirs;
+      state.teams[targetPlayer].heroes[targetIdx] = mine;
+      toast(`🔄 Swapped ${mine.n} for ${theirs.n}!`);
+      break;
+    }
+    case 'damage_player': {
+      applyPlayerDamage(targetPlayer, action.value, '(action card!)');
+      break;
+    }
+  }
+  state.pendingAction = null;
+  closeModal('battleModal');
+  renderTeams();
+  endTurn();
+}
+
+function cancelAction(){
+  if(state.pendingAction){
+    const {action, player} = state.pendingAction;
+    // Return action to held actions if the player still exists
+    if(player && state.heldActions[player]){
+      state.heldActions[player].push(action);
+      toast(`${action.icon} ${action.n} returned to hand`);
+    }
+  }
+  state.pendingAction = null;
+  closeModal('battleModal');
+  renderGame();
+}
+
+function openRecoverPicker(player){
+  state.pendingAction = {action: {type:'recover'}, player};
+  const content = $('battleModalContent');
+  let html = `<h2>⚰️ RAID THE GRAVEYARD</h2><p class="picker-sub">Pick any card to bring back from the discard pile.</p><div class="challenge-list">`;
+  if(state.discard.length === 0){
+    html += '<p class="small">Discard pile is empty!</p>';
+  } else {
+    state.discard.forEach((c, idx) => {
+      if(c.kind === 'action'){
+        html += `<div class="challenge-item" onclick="completeRecover(${idx})"><strong>${c.icon} ${c.n}</strong><div class="small">${c.desc}</div></div>`;
+      } else {
+        html += `<div class="challenge-item" onclick="completeRecover(${idx})"><strong>${c.n}</strong><div class="small">${c.t}</div></div>`;
+      }
+    });
+  }
+  html += `</div><div class="btn-row"><button class="btn sm" onclick="cancelAction()">CANCEL</button></div>`;
+  content.innerHTML = html;
+  $('battleModal').classList.add('active');
+}
+
+function completeRecover(idx){
+  const {player} = state.pendingAction;
+  const card = state.discard.splice(idx, 1)[0];
+  if(card.kind === 'action'){
+    state.heldActions[player].push(card);
+    toast(`⚰️ Recovered ${card.n}!`);
+  } else {
+    if(state.teams[player].heroes.length >= 8){
+      toast('Team full!');
+      state.discard.push(card);
+    } else {
+      state.teams[player].heroes.push({...card, cancelled:false});
+      toast(`⚰️ Recovered ${card.n}!`);
+    }
+  }
+  state.pendingAction = null;
+  closeModal('battleModal');
+  renderTeams();
+  endTurn();
+}
+
+function useHeldAction(player, idx){
+  // Block during modals, battles, or other player's turn
+  if(isAnyModalOpen()){ toast('Wait for the current action to finish!'); return; }
+  if(state.currentCard){ toast('Decide on your drawn card first!'); return; }
+  if(state.players[state.currentTurn] !== player){ return; }
+  const action = state.heldActions[player].splice(idx, 1)[0];
+  fireAction(action, player);
+}
+
+// ============ CHAMPION ABILITIES ============
+function canUseChampionAbility(player, champHero){
+  if(!champHero.isChampion) return false;
+  if(!state.battleCount) state.battleCount = {};
+  if(!state.lastAbilityBattle) state.lastAbilityBattle = {};
+  const key = `${player}_${champHero.n}`;
+  const lastUsed = state.lastAbilityBattle[key] ?? -999;
+  const current = state.battleCount[player] ?? 0;
+  const cooldown = champHero.ability.cooldown;
+  return (current - lastUsed) >= cooldown;
+}
+
+function useAbility(){
+  const bs = battleState;
+  if(!bs || !bs.attacker.isChampion) return;
+  const champ = bs.attacker;
+  const ab = champ.ability;
+  const usesLeft = ab.usesPerBattle - (champ.abilityUsedThisBattle || 0);
+  if(usesLeft <= 0){
+    toast('No uses left this battle!');
+    return;
+  }
+  if(!canUseChampionAbility(bs.attackerPlayer, champ)){
+    toast('Ability on cooldown!');
+    return;
+  }
+  // Apply ability
+  const target = bs.defender;
+  sfx('champion');
+  const emojis = ['✨','💫','⚡','🌟'];
+  const s = emojis[Math.floor(Math.random()*emojis.length)];
+  switch(ab.type){
+    case 'damage': {
+      const dmg = ab.value;
+      target.currentHp -= dmg;
+      bs.log.push({type:'crit', text:`${s} ${champ.n} unleashes ${ab.name.toUpperCase()}! ${target.n} takes ${dmg} damage${ab.ignoreArmor?' (armor ignored!)':''}!`});
+      shakeScreen();
+      flashFighter('defender');
+      break;
+    }
+    case 'shield': {
+      champ.shield = (champ.shield || 0) + ab.value;
+      bs.log.push({type:'crit', text:`${s} ${champ.n} activates ${ab.name.toUpperCase()}! Absorbs next ${ab.value} attacks!`});
+      break;
+    }
+    case 'dodge': {
+      champ.shield = (champ.shield || 0) + ab.value;
+      bs.log.push({type:'crit', text:`${s} ${champ.n} phases out! Next ${ab.value} attacks miss!`});
+      break;
+    }
+    case 'heal_buff': {
+      champ.currentHp = Math.min(champ.maxHp, champ.currentHp + ab.value);
+      champ.atkBuff = (champ.atkBuff || 0) + (ab.buff || 0);
+      champ.atk += (ab.buff || 0);
+      bs.log.push({type:'crit', text:`${s} ${champ.n} enters BLOOD FRENZY! Heals ${ab.value} HP and gains +${ab.buff} ATK!`});
+      break;
+    }
+    case 'buff_arm': {
+      champ.armBuff = (champ.armBuff || 0) + ab.value;
+      champ.arm += ab.value;
+      bs.log.push({type:'crit', text:`${s} ${champ.n}'s skin turns to STONE! +${ab.value} ARM!`});
+      break;
+    }
+    case 'extra_turn': {
+      // Simplified: deal double-damage next attack
+      champ.atkBuff = (champ.atkBuff || 0) + Math.floor(champ.atk * 0.5);
+      champ.atk += Math.floor(champ.atk * 0.5);
+      bs.log.push({type:'crit', text:`${s} ${champ.n} STOPS TIME! Next hits deal +50% damage!`});
+      break;
+    }
+    case 'damage_stun': {
+      target.currentHp -= ab.value;
+      target.stunned = true;
+      bs.log.push({type:'crit', text:`${s} ${champ.n} PSYCHIC STRIKES! ${target.n} takes ${ab.value} and is STUNNED!`});
+      shakeScreen();
+      flashFighter('defender');
+      break;
+    }
+    case 'percent_damage': {
+      const dmg = Math.floor(target.currentHp * ab.value);
+      target.currentHp -= dmg;
+      bs.log.push({type:'crit', text:`${s} FINAL VERDICT! ${target.n} loses ${dmg} HP (50%)!`});
+      shakeScreen();
+      flashFighter('defender');
+      break;
+    }
+  }
+  champ.abilityUsedThisBattle = (champ.abilityUsedThisBattle || 0) + 1;
+  // Lock in cooldown only when all uses for this battle are exhausted
+  if(champ.abilityUsedThisBattle >= ab.usesPerBattle){
+    if(!state.lastAbilityBattle) state.lastAbilityBattle = {};
+    const key = `${bs.attackerPlayer}_${champ.n}`;
+    state.lastAbilityBattle[key] = state.battleCount[bs.attackerPlayer] ?? 0;
+  }
+  // Check for kill
+  if(target.currentHp <= 0){
+    bs.overkill = -target.currentHp;
+    target.currentHp = 0;
+    bs.winner = 'attacker';
+    bs.log.push({type:'win', text:`🏆🏆🏆 ${champ.n} DEFEATS ${target.n}! 🏆🏆🏆`});
+    if(bs.overkill > 0){
+      bs.log.push({type:'crit', text:`💥 OVERKILL! ${bs.overkill} damage spills onto the loser!`});
+    }
+  }
+  renderArena();
+}
+
+// ============ BATTLE SYSTEM ============
+let battleState = null;
+
+function openBattle(){
+  const currentPlayer = state.players[state.currentTurn];
+  const myTeam = state.teams[currentPlayer];
+  if(myTeam.heroes.length===0){
+    toast('You need a hero to battle!');
+    return;
+  }
+  // Step 1: pick target (enemy hero)
+  let anyEnemy = false;
+  state.players.forEach(p=>{
+    if(p!==currentPlayer && state.teams[p].heroes.length>0) anyEnemy = true;
+  });
+  if(!anyEnemy){
+    toast('No enemy heroes to battle!');
+    return;
+  }
+  renderTargetPicker();
+  $('battleModal').classList.add('active');
+}
+
+function getStats(h){
+  if(!h) return {atk:50,arm:50,hp:50,spd:50};
+  if(h.isChampion) return {atk:h.atk, arm:h.arm, hp:h.hp, spd:h.spd};
+  return STATS[h.n] || {atk:50,arm:50,hp:50,spd:50};
+}
+
+function renderTargetPicker(){
+  const currentPlayer = state.players[state.currentTurn];
+  const content = $('battleModalContent');
+  let html = `
+    <h2>⚔ CHOOSE TARGET</h2>
+    <p class="picker-sub">Pick an enemy hero to battle. Winner takes the loser's card!</p>
+    <div class="challenge-list target-list">
+  `;
+  state.players.forEach(p=>{
+    if(p===currentPlayer)return;
+    if(state.defeated[p])return;
+    state.teams[p].heroes.forEach((h,idx)=>{
+      if(h.cancelled)return;
+      const s = getStats(h);
+      const star = h.isChampion ? '★ ' : '';
+      html += `<div class="challenge-item" onclick="pickAttacker('${p}',${idx})">
+        <strong>${p} — ${star}${h.n}</strong>
+        <div class="small">⚔${s.atk} 🛡${s.arm} ❤${s.hp} ⚡${s.spd}</div>
+      </div>`;
+    });
+    state.teams[p].heroes.forEach((h,idx)=>{
+      if(!h.cancelled)return;
+      const s = getStats(h);
+      const star = h.isChampion ? '★ ' : '';
+      html += `<div class="challenge-item" onclick="pickAttacker('${p}',${idx})" style="opacity:.7">
+        <strong>${p} — ${star}${h.n} <span style="font-size:.55rem">(cancelled)</span></strong>
+        <div class="small">⚔${s.atk} 🛡${s.arm} ❤${s.hp} ⚡${s.spd}</div>
+      </div>`;
+    });
+  });
+  html += `</div>
+    <div class="btn-row"><button class="btn sm" onclick="closeModal('battleModal')">CANCEL</button></div>`;
+  content.innerHTML = html;
+}
+
+function pickAttacker(targetPlayer, targetIdx){
+  const currentPlayer = state.players[state.currentTurn];
+  const myTeam = state.teams[currentPlayer];
+  battleState = {
+    attackerPlayer: currentPlayer,
+    defenderPlayer: targetPlayer,
+    defenderIdx: targetIdx,
+  };
+  const content = $('battleModalContent');
+  const target = state.teams[targetPlayer].heroes[targetIdx];
+  const ts = getStats(target);
+  const targetStar = target.isChampion ? '★ ' : '';
+  let html = `
+    <h2>⚔ PICK YOUR FIGHTER</h2>
+    <p class="picker-sub">Facing <strong>${targetStar}${target.n}</strong> (⚔${ts.atk} 🛡${ts.arm} ❤${ts.hp} ⚡${ts.spd})</p>
+    <div class="challenge-list">
+  `;
+  myTeam.heroes.forEach((h,idx)=>{
+    const s = getStats(h);
+    const star = h.isChampion ? '★ ' : '';
+    html += `<div class="challenge-item" onclick="startBattle(${idx})">
+      <strong>${star}${h.n}</strong>
+      <div class="small">⚔${s.atk} 🛡${s.arm} ❤${s.hp} ⚡${s.spd}</div>
+    </div>`;
+  });
+  html += `</div>
+    <div class="btn-row"><button class="btn sm" onclick="closeModal('battleModal')">CANCEL</button></div>`;
+  content.innerHTML = html;
+}
+
+function startBattle(attackerIdx){
+  const bs = battleState;
+  bs.attackerIdx = attackerIdx;
+  // Increment battle counter for both players
+  if(!state.battleCount) state.battleCount = {};
+  state.battleCount[bs.attackerPlayer] = (state.battleCount[bs.attackerPlayer] || 0) + 1;
+  state.battleCount[bs.defenderPlayer] = (state.battleCount[bs.defenderPlayer] || 0) + 1;
+  const attacker = state.teams[bs.attackerPlayer].heroes[attackerIdx];
+  const defender = state.teams[bs.defenderPlayer].heroes[bs.defenderIdx];
+  const aStats = attacker.isChampion ? {atk:attacker.atk,arm:attacker.arm,hp:attacker.hp,spd:attacker.spd} : (STATS[attacker.n] || {atk:50,arm:50,hp:50,spd:50});
+  const dStats = defender.isChampion ? {atk:defender.atk,arm:defender.arm,hp:defender.hp,spd:defender.spd} : (STATS[defender.n] || {atk:50,arm:50,hp:50,spd:50});
+  bs.attacker = {...attacker, ...aStats, currentHp: aStats.hp, maxHp: aStats.hp, shield:0, atkBuff:0, armBuff:0, abilityUsedThisBattle:0};
+  bs.defender = {...defender, ...dStats, currentHp: dStats.hp, maxHp: dStats.hp, shield:0, atkBuff:0, armBuff:0, abilityUsedThisBattle:0};
+  bs.log = [];
+  bs.turn = 0;
+  bs.winner = null;
+  // Track battles for champion cooldowns
+  if(!state.battleCount) state.battleCount = {};
+  // speed determines who goes first — ties broken randomly
+  if(aStats.spd > dStats.spd) bs.first = 'attacker';
+  else if(dStats.spd > aStats.spd) bs.first = 'defender';
+  else bs.first = Math.random() < .5 ? 'attacker' : 'defender';
+  bs.log.push({type:'info', text:`⚡ ${bs.first==='attacker'?bs.attacker.n:bs.defender.n} strikes first! (higher speed)`});
+  renderArena();
+}
+
+function renderArena(){
+  const bs = battleState;
+  const content = $('battleModalContent');
+  const aHpPct = Math.max(0, (bs.attacker.currentHp / bs.attacker.maxHp) * 100);
+  const dHpPct = Math.max(0, (bs.defender.currentHp / bs.defender.maxHp) * 100);
+  const logHtml = bs.log.map(l=>{
+    const cls = l.type==='hit'?'hit':l.type==='miss'?'miss':l.type==='crit'?'crit':l.type==='win'?'win':'';
+    return `<div class="line ${cls}">${l.text}</div>`;
+  }).join('');
+  let actions = '';
+  if(bs.winner){
+    const winner = bs.winner==='attacker' ? bs.attacker : bs.defender;
+    const winnerPlayer = bs.winner==='attacker' ? bs.attackerPlayer : bs.defenderPlayer;
+    actions = `
+      <div class="victory-banner">
+        <div class="vb-star">★</div>
+        <div class="vb-text">VICTORY!</div>
+        <div class="vb-sub">${winnerPlayer} claims ${winner.n}!</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" onclick="resolveBattle()">CLAIM CARD ⚔</button>
+      </div>`;
+  } else if(bs.turn === 0){
+    // Pre-fight
+    actions = `<div class="btn-row">
+      <button class="btn red" onclick="autoFight()">⚔ FIGHT!</button>
+      <button class="btn sm" onclick="nextRound()">STEP</button>
+      <button class="btn sm" onclick="closeModal('battleModal')">FLEE</button>
+    </div>`;
+  } else {
+    // Check for champion ability
+    let abilityBtn = '';
+    if(bs.attacker.isChampion && bs.attacker.currentHp > 0 && !bs.winner){
+      const ab = bs.attacker.ability;
+      const cdReady = canUseChampionAbility(bs.attackerPlayer, bs.attacker);
+      const usesLeft = ab.usesPerBattle - (bs.attacker.abilityUsedThisBattle || 0);
+      if(cdReady && usesLeft > 0){
+        abilityBtn = `<button class="ability-btn" onclick="useAbility()">⚡ ${ab.name.toUpperCase()}</button>`;
+      } else if(usesLeft <= 0){
+        abilityBtn = `<button class="ability-btn" disabled>⚡ USED (battle)</button>`;
+      } else {
+        abilityBtn = `<button class="ability-btn" disabled>⚡ ON COOLDOWN</button>`;
+      }
+    }
+    actions = `<div class="btn-row">
+      <button class="btn red" onclick="autoFight()">AUTO ▶▶</button>
+      <button class="btn sm" onclick="nextRound()">STEP ▶</button>
+      ${abilityBtn}
+      <button class="btn sm" onclick="closeModal('battleModal')">FLEE</button>
+    </div>`;
+  }
+  const atkOdds = calcWinProbability(bs.attacker, bs.defender);
+  const defOdds = 100 - atkOdds;
+  const oddsHtml = bs.winner ? '' : `
+    <div class="odds-bar">
+      <div class="ob-a" style="width:${atkOdds}%">${atkOdds}%</div>
+      <div class="ob-d" style="width:${defOdds}%">${defOdds}%</div>
+    </div>`;
+  content.innerHTML = `
+    <h2 style="text-align:center">⚔ BATTLE! ⚔</h2>
+    <div class="battle-arena">
+      <div class="battle-row">
+        <div class="battle-fighter">
+          <div class="bn">${bs.attacker.n.toUpperCase()}</div>
+          <div class="bo">${bs.attackerPlayer}</div>
+          <div class="hp-bar">
+            <div class="fill ${aHpPct<30?'low':''}" style="width:${aHpPct}%"></div>
+            <div class="txt">${Math.max(0,Math.round(bs.attacker.currentHp))} / ${bs.attacker.maxHp}</div>
+          </div>
+          <div class="small" style="font-size:.55rem">⚔${bs.attacker.atk} 🛡${bs.attacker.arm} ⚡${bs.attacker.spd}</div>
+        </div>
+        <div class="battle-vs">VS</div>
+        <div class="battle-fighter">
+          <div class="bn">${bs.defender.n.toUpperCase()}</div>
+          <div class="bo">${bs.defenderPlayer}</div>
+          <div class="hp-bar">
+            <div class="fill ${dHpPct<30?'low':''}" style="width:${dHpPct}%"></div>
+            <div class="txt">${Math.max(0,Math.round(bs.defender.currentHp))} / ${bs.defender.maxHp}</div>
+          </div>
+          <div class="small" style="font-size:.55rem">⚔${bs.defender.atk} 🛡${bs.defender.arm} ⚡${bs.defender.spd}</div>
+        </div>
+      </div>
+      ${oddsHtml}
+      <div class="battle-log">${logHtml || '<div class="line">⚡ Tap FIGHT to begin! ⚡</div>'}</div>
+    </div>
+    ${actions}
+  `;
+}
+
+function rollAttack(attacker, defender){
+  // d20 + atk/5 vs armor/5 + 10 to hit
+  const roll = Math.floor(Math.random()*20) + 1;
+  const toHit = roll + Math.floor(attacker.atk / 5);
+  const defense = Math.floor(defender.arm / 5) + 10;
+  const crit = roll === 20;
+  const fumble = roll === 1;
+  if(fumble) return {hit:false, fumble:true, roll, toHit, defense, dmg:0};
+  if(crit){
+    // Crit damage: atk/2 + atk/4, armor barely helps
+    const dmg = Math.max(2, Math.round(attacker.atk * 0.6 - defender.arm * 0.1));
+    return {hit:true, crit:true, roll, toHit, defense, dmg};
+  }
+  if(toHit >= defense){
+    // Damage = atk/3 - armor/8, min 1, with variance
+    const variance = 0.8 + Math.random() * 0.4; // 0.8x to 1.2x
+    const dmg = Math.max(1, Math.round((attacker.atk * 0.33 - defender.arm * 0.12) * variance));
+    return {hit:true, crit:false, roll, toHit, defense, dmg};
+  }
+  return {hit:false, fumble:false, roll, toHit, defense, dmg:0};
+}
+
+function nextRound(){
+  const bs = battleState;
+  bs.turn++;
+  // Determine order for this round
+  const order = bs.first === 'attacker' ? ['attacker','defender'] : ['defender','attacker'];
+  let anyCrit = false;
+  let damagedRole = null;
+  for(const role of order){
+    if(bs.winner) break;
+    const att = bs[role];
+    const def = role==='attacker' ? bs.defender : bs.attacker;
+    if(att.currentHp <= 0) continue;
+    const result = rollAttack(att, def);
+    // Check for shields/dodges from champion abilities
+    if((result.hit || result.crit) && def.shield && def.shield > 0){
+      def.shield--;
+      bs.log.push({type:'miss', text:`🛡 ${def.n}'s shield absorbs the hit! (${def.shield} left)`});
+      if(def.currentHp <= 0) { bs.winner = role; break; }
+      continue;
+    }
+    if(result.fumble){
+      bs.log.push({type:'miss', text:getFumbleLine(att)});
+      sfx('miss');
+    } else if(result.crit){
+      def.currentHp -= result.dmg;
+      bs.log.push({type:'crit', text:getCritLine(att, def, result.dmg)});
+      anyCrit = true;
+      damagedRole = role === 'attacker' ? 'defender' : 'attacker';
+      sfx('crit');
+    } else if(result.hit){
+      def.currentHp -= result.dmg;
+      bs.log.push({type:'hit', text:getAttackLine(att, def, result.dmg)});
+      damagedRole = role === 'attacker' ? 'defender' : 'attacker';
+      sfx('hit');
+    } else {
+      bs.log.push({type:'miss', text:getMissLine(att, def)});
+      sfx('miss');
+    }
+    if(def.currentHp <= 0){
+      bs.overkill = -def.currentHp; // how much extra damage past 0
+      def.currentHp = 0;
+      bs.winner = role;
+      const winner = role==='attacker' ? bs.attacker : bs.defender;
+      const loser = role==='attacker' ? bs.defender : bs.attacker;
+      bs.log.push({type:'win', text:`🏆🏆🏆 ${winner.n} DEFEATS ${loser.n}! 🏆🏆🏆`});
+      sfx('victory');
+      if(bs.overkill > 0){
+        bs.log.push({type:'crit', text:`💥 OVERKILL! ${bs.overkill} damage spills onto the loser!`});
+      }
+      break;
+    }
+  }
+  renderArena();
+  // trigger FX
+  if(anyCrit) shakeScreen();
+  if(damagedRole) flashFighter(damagedRole);
+  // auto-scroll log to bottom
+  setTimeout(()=>{
+    const log = document.querySelector('.battle-log');
+    if(log) log.scrollTop = log.scrollHeight;
+  }, 50);
+}
+
+function shakeScreen(){
+  const modal = document.querySelector('#battleModalContent');
+  if(!modal) return;
+  modal.classList.remove('shake');
+  void modal.offsetWidth; // force reflow
+  modal.classList.add('shake');
+}
+
+function flashFighter(role){
+  const idx = role === 'attacker' ? 0 : 1;
+  const fighters = document.querySelectorAll('.battle-fighter');
+  if(fighters[idx]){
+    fighters[idx].classList.remove('damaged');
+    void fighters[idx].offsetWidth;
+    fighters[idx].classList.add('damaged');
+  }
+}
+
+// Auto-play: run rounds one after another with delay for drama
+let autoPlaying = false;
+function autoFight(){
+  if(autoPlaying) return;
+  autoPlaying = true;
+  const step = ()=>{
+    if(battleState && !battleState.winner){
+      nextRound();
+      setTimeout(step, 1400);
+    } else {
+      autoPlaying = false;
+      renderArena();
+    }
+  };
+  step();
+}
+
+// Heroes whose power can revive their player (one-time, restart at 20 HP)
+const REVIVE_HEROES = ["Hyper Heal", "The Rewind", "Dream Weaver"];
+
+function hasReviveHero(player){
+  return state.teams[player].heroes.some(h => REVIVE_HEROES.includes(h.n));
+}
+
+function applyPlayerDamage(player, damage, reason){
+  if(damage <= 0) return;
+  state.hp[player] = Math.max(0, state.hp[player] - damage);
+  toast(`${player} took ${damage} damage! ${reason}`);
+  sfx('damage');
+  if(state.hp[player] <= 0){
+    if(!state.reviveUsed[player] && hasReviveHero(player)){
+      state.reviveUsed[player] = true;
+      state.hp[player] = 20;
+      const reviver = state.teams[player].heroes.find(h => REVIVE_HEROES.includes(h.n));
+      logEvent('action', `✨ ${reviver.n} REVIVES ${player} at 20 HP!`);
+      setTimeout(()=>{ toast(`✨ ${reviver.n} REVIVES ${player} at 20 HP!`); sfx('heal'); }, 1600);
+    } else {
+      state.defeated[player] = true;
+      logEvent('defeat', `💀 ${player} has been ELIMINATED!`);
+      setTimeout(()=>{ toast(`💀 ${player} has been DEFEATED!`); sfx('defeat'); }, 1600);
+    }
+  }
+}
+
+function resolveBattle(){
+  const bs = battleState;
+  const currentPlayer = bs.attackerPlayer;
+  const winnerRole = bs.winner;
+  let overkill = bs.overkill || 0;
+  
+  // Double overkill from Genie's Twist
+  if(state.doubleOverkill && overkill > 0){
+    overkill *= 2;
+    state.doubleOverkill = false;
+    toast(`⚡ DOUBLE OVERKILL! ${overkill} damage!`);
+  }
+  
+  // Bounty bonus
+  const loserPlayer = winnerRole === 'attacker' ? bs.defenderPlayer : currentPlayer;
+  if(state.bountyTarget === loserPlayer && overkill >= 0){
+    overkill += 20;
+    state.bountyTarget = null;
+    toast(`🎯 Bounty collected! +20 bonus damage!`);
+  }
+
+  if(winnerRole === 'attacker'){
+    if(state.teams[currentPlayer].heroes.length >= 8){
+      toast(`Team full — ${bs.defender.n} removed but not captured!`);
+      state.teams[bs.defenderPlayer].heroes.splice(bs.defenderIdx, 1);
+    } else {
+      const captured = state.teams[bs.defenderPlayer].heroes.splice(bs.defenderIdx, 1)[0];
+      captured.cancelled = false;
+      state.teams[currentPlayer].heroes.push(captured);
+      toast(`⚔ ${currentPlayer} captured ${captured.n}!`);
+    }
+    logEvent('battle', `⚔ ${bs.attacker.n} (${currentPlayer}) defeated ${bs.defender.n} (${bs.defenderPlayer})${overkill>0?' — '+overkill+' overkill!':''}`);
+    if(overkill > 0){
+      applyPlayerDamage(bs.defenderPlayer, overkill, '(overkill!)');
+    }
+  } else {
+    const lost = state.teams[currentPlayer].heroes.splice(bs.attackerIdx, 1)[0];
+    if(state.teams[bs.defenderPlayer].heroes.length < 8){
+      lost.cancelled = false;
+      state.teams[bs.defenderPlayer].heroes.push(lost);
+      toast(`⚔ ${bs.defenderPlayer} captured ${lost.n}!`);
+    } else {
+      toast(`${lost.n} was defeated!`);
+    }
+    logEvent('battle', `⚔ ${bs.defender.n} (${bs.defenderPlayer}) defeated ${bs.attacker.n} (${currentPlayer})${overkill>0?' — '+overkill+' overkill!':''}`);
+    if(overkill > 0){
+      applyPlayerDamage(currentPlayer, overkill, '(overkill!)');
+    }
+  }
+  battleState = null;
+  closeModal('battleModal');
+  renderTeams();
+  checkLastStanding();
+}
+
+// ============ WINNER ============
+function checkWinner(player){
+  const team = state.teams[player].heroes;
+  if(team.length===7 && team.every(h=>h.cancelled)){
+    $('winnerName').textContent = player.toUpperCase();
+    $('winnerModal').classList.add('active');
+  }
+}
+function resetGame(){
+  closeModal('winnerModal');
+  state = {players:[],currentTurn:0,deck:[],discard:[],currentCard:null,teams:{},hp:{},reviveUsed:{},defeated:{},champPicks:{},champPickIdx:0,battleCount:{},lastAbilityBattle:{},heldActions:{},shielded:{},pendingAction:null,turnCount:0,gameLog:[],doubleOverkill:false,bountyTarget:null};
+  selectedCount = 3;
+  playerNames = ['','','','','',''];
+  show('landing');
+}
+
+// ============ INIT ============
+renderPlayerCount();
+// Set sound button label from stored preference
+try { const sb = $('soundToggle'); if(sb) sb.textContent = soundEnabled ? '🔊' : '🔇'; } catch(e){}
+</script>
+</body>
+</html>
