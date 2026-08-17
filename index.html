@@ -1182,6 +1182,9 @@ body::before{
   width:100%;
   max-height:85vh;
   overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  position:relative;
+  z-index:101;
 }
 .modal h2{
   font-family:'Bangers',cursive;
@@ -3178,14 +3181,12 @@ function rollAttack(attacker, defender){
   const fumble = roll === 1;
   if(fumble) return {hit:false, fumble:true, roll, toHit, defense, dmg:0};
   if(crit){
-    // Crit damage: atk/2 + atk/4, armor barely helps
-    const dmg = Math.max(2, Math.round(attacker.atk * 0.6 - defender.arm * 0.1));
+    const dmg = Math.max(3, Math.round(attacker.atk * 0.8 - defender.arm * 0.08));
     return {hit:true, crit:true, roll, toHit, defense, dmg};
   }
   if(toHit >= defense){
-    // Damage = atk/3 - armor/8, min 1, with variance
-    const variance = 0.8 + Math.random() * 0.4; // 0.8x to 1.2x
-    const dmg = Math.max(1, Math.round((attacker.atk * 0.33 - defender.arm * 0.12) * variance));
+    const variance = 0.8 + Math.random() * 0.4;
+    const dmg = Math.max(1, Math.round((attacker.atk * 0.45 - defender.arm * 0.1) * variance));
     return {hit:true, crit:false, roll, toHit, defense, dmg};
   }
   return {hit:false, fumble:false, roll, toHit, defense, dmg:0};
@@ -3280,7 +3281,7 @@ function autoFight(){
   const step = ()=>{
     if(battleState && !battleState.winner){
       nextRound();
-      setTimeout(step, 1400);
+      setTimeout(step, 800);
     } else {
       autoPlaying = false;
       renderArena();
